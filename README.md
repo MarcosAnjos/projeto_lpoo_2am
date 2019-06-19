@@ -1,4 +1,4 @@
-# Trabalho Final Diciplina LPPO - JAVA 
+# Trabalho Final Disciplina LPPO - JAVA 
 ## Tema : Desenvolver um software de Ordem de Serviço
 
 ******************************************************************************************************************************************
