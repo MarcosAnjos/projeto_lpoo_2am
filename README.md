@@ -25,4 +25,4 @@
 ******************************************************************************************************************************************
 ## Desenvolvedores 
 ### dev 01 : https://github.com/MarcosAnjos
-### dev 02 : https://github.com/
+### dev 02 : https://github.com/Allainn
