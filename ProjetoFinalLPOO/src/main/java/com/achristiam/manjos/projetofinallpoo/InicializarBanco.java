@@ -63,7 +63,7 @@ public class InicializarBanco {
         pc.gravar(pro3);
         
         Date data = ParseDate.parseDate("20/06/2019");
-        System.out.println(data.toString());
+        System.out.println(data.getTime());
         Venda ven = new Venda("Dinheiro", ParseDate.parseDate("20/06/2019"), 0.00, cli2, fun3);
         vc.gravar(ven);
         
