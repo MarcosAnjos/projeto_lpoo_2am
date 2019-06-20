@@ -7,8 +7,10 @@ package com.achristiam.manjos.projetofinallpoo.view;
 
 import com.achristiam.manjos.projetofinallpoo.InicializarBanco;
 import com.achristiam.manjos.projetofinallpoo.controller.ClienteController;
+import com.achristiam.manjos.projetofinallpoo.controller.FuncionarioController;
 import com.achristiam.manjos.projetofinallpoo.model.dao.ConexaoHibernate;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Cliente;
+import com.achristiam.manjos.projetofinallpoo.model.vo.Funcionario;
 import java.util.List;
 
 /**
@@ -22,11 +24,19 @@ public class Principal {
         
         
         ClienteController cliC = new ClienteController();
+        FuncionarioController fc = new FuncionarioController();
+        
         List<Cliente> clientes;
+        List<Funcionario> funcionarios;
         
         clientes = cliC.buscarTodos();
         for(Cliente cliente:clientes){
             System.out.println(cliente.toString());
+        }
+        
+        funcionarios = fc.buscarTodos();
+        for(Funcionario funcionairo:funcionarios){
+            System.out.println(funcionairo.toString());
         }
         
         ConexaoHibernate.close();

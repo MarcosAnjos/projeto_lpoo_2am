@@ -16,27 +16,37 @@ import javax.persistence.Table;
  *
  * @author allainnc
  */
-
 @Entity
-@Table(name = "tb_Cliente")
-public class Cliente {
+@Table(name = "tb_Funcionario")
+public class Funcionario {
     
-    @Id    
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cli_codigo")
+    @Column(name = "fun_codigo")
     private Long id;
     
-    @Column(name = "cli_nome")
-    private String nome; 
+    @Column(name = "fun_nome")
+    private String nome;
     
+    @Column(name = "fun_login")
+    private String login;
     
-    public Cliente() {
+    @Column(name = "fun_senha")
+    private String senha;
+
+    public Funcionario() {
     }
 
-    public Cliente(String nome) {
+    public Funcionario(String nome, String login, String senha) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
+
+    public Funcionario(String nome) {
         this.nome = nome;
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -53,9 +63,25 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + '}';
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + '}';
     }
     
     
