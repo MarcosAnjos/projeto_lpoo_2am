@@ -8,12 +8,14 @@ package com.achristiam.manjos.projetofinallpoo;
 import com.achristiam.manjos.projetofinallpoo.controller.ClienteController;
 import com.achristiam.manjos.projetofinallpoo.controller.FuncionarioController;
 import com.achristiam.manjos.projetofinallpoo.controller.ProdutoController;
+import com.achristiam.manjos.projetofinallpoo.controller.UsuarioController;
 import com.achristiam.manjos.projetofinallpoo.controller.VendaController;
 import com.achristiam.manjos.projetofinallpoo.controller.VendaProdutoController;
 import com.achristiam.manjos.projetofinallpoo.model.bo.ParseDate;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Cliente;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Funcionario;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Produto;
+import com.achristiam.manjos.projetofinallpoo.model.vo.Usuario;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Venda;
 import com.achristiam.manjos.projetofinallpoo.model.vo.VendaProduto;
 import java.util.Date;
@@ -23,6 +25,14 @@ import java.util.Date;
  * @author allainnc
  */
 public class InicializarBanco {
+    
+    public static void inicializarAdmin(){
+        UsuarioController uc = new UsuarioController();
+        Usuario u = new Usuario();
+        u.setLogin("admin");
+        u.setSenha("admin");
+        uc.gravar(u);
+    }
     
     public static void inicializar(){
         ClienteController cliC = new ClienteController();
