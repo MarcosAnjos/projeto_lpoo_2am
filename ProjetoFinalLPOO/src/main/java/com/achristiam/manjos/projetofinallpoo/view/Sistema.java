@@ -1,6 +1,8 @@
 package com.achristiam.manjos.projetofinallpoo.view;
 
+import com.achristiam.manjos.projetofinallpoo.InicializarBanco;
 import com.achristiam.manjos.projetofinallpoo.controller.SistemaController;
+import com.achristiam.manjos.projetofinallpoo.model.dao.ConexaoHibernate;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +20,7 @@ public class Sistema extends JFrame {
     private JMenu mOpcoes;
     private JDesktopPane telaInterna;
 
+    
     public Sistema() {
         super("Projeto Base");
         telaInterna = new JDesktopPane();
@@ -36,23 +39,36 @@ public class Sistema extends JFrame {
         jmBarraMenus.add(mOpcoes);
 
         JMenuItem miCliente = new JMenuItem();
+        JMenuItem miFuncionario = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
+        miFuncionario.setText("Funcionario");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
+        mOpcoes.add(miFuncionario);
 
         telaInterna.setLayout(new BorderLayout());
 
         miCliente.addActionListener(
-                new ActionListener() {
+            new ActionListener() {
 
-            public void actionPerformed(ActionEvent ev) {
-                CadastroCliente cadCliente = new CadastroCliente();
-                telaInterna.add(cadCliente);
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroCliente cadCliente = new CadastroCliente();
+                    telaInterna.add(cadCliente);
+                }
             }
-        }
+        );
+        
+        miFuncionario.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroFuncionario cadFuncionario = new CadastroFuncionario();
+                    telaInterna.add(cadFuncionario);
+                }
+            }
         );
 
         this.setVisible(true);
@@ -60,6 +76,8 @@ public class Sistema extends JFrame {
 
     public static void main(String[] args) {
         SistemaController.iniciarSistema();
+        InicializarBanco.inicializarAdmin();
         new Sistema();
+        //ConexaoHibernate.close();
     }
 }
