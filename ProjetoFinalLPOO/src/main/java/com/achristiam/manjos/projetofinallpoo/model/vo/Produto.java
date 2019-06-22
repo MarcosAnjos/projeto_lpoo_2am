@@ -67,14 +67,6 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getValor() {
-        return valorCompra;
-    }
-
-    public void setValor(double valor) {
-        this.valorCompra = valor;
-    }
-
     public double getValorCompra() {
         return valorCompra;
     }
