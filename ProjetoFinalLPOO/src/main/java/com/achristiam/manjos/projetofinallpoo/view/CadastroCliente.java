@@ -24,8 +24,12 @@ public class CadastroCliente extends CadastroPadrao {
     private ClienteController clienteController = new ClienteController();
     private Cliente cli;
     
+    private boolean gravar;
+    
     public CadastroCliente() {
         super("Cadastro de Cliente", true, true, true, true);
+        
+        gravar = false;
         
         jpCampos = new JPanel();
 
@@ -61,6 +65,7 @@ public class CadastroCliente extends CadastroPadrao {
         jbGravar.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
+                    gravar = true;
                     clienteController.gravar(getObjetoFromCampos());
                     JOptionPane.showMessageDialog(null, "O Cliente foi cadastrado com sucesso!");
                     limpaCampos();
@@ -73,7 +78,7 @@ public class CadastroCliente extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     if (camposValidos()) {
-                        clienteController.atualizar(getClienteAlter());
+                        clienteController.atualizar(getObjetoFromCampos());
                         jbAlterar.setEnabled(false);
                         jbExcluir.setEnabled(false);
                         jbGravar.setEnabled(true);
@@ -121,17 +126,12 @@ public class CadastroCliente extends CadastroPadrao {
         if (jtfCodigo.getText() == "" || jtfNome.getText() == "");
         return true;
     }
-    
-    public Cliente getClienteAlter() {
-        //cli = clienteController.buscarUm(Long.parseLong(jtfCodigo.getText()));
-        cli.setNome(jtfNome.getText());
-        return cli;
-    }
 
     public Cliente getObjetoFromCampos() {
-        cli = new Cliente(jtfNome.getText());
-        //cli.setNome(jtfNome.getText());
+        if(gravar) cli = new Cliente();
+        cli.setNome(jtfNome.getText());
 
+        gravar = false;
         return cli;
     }
 	
