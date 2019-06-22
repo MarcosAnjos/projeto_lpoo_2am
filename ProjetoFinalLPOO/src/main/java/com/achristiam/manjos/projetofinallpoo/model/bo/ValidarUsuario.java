@@ -23,7 +23,6 @@ public class ValidarUsuario {
             return false;
         }
         else {
-            System.out.println(usr.getSenha());
             if(senha.equals(usr.getSenha())){
                 JOptionPane.showMessageDialog(null, "Logado com sucesso");
                 SingletonUsuario.setInstance(usr);
