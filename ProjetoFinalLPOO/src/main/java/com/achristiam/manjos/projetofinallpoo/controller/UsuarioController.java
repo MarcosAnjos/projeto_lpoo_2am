@@ -28,7 +28,7 @@ public class UsuarioController {
     }
     
     public Usuario buscar(String nome){
-        return null;
+        return (Usuario) genericDao.listOne("usr_login", nome, Usuario.class);
     }
     
     public void remover (Usuario usuario) {

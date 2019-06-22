@@ -30,8 +30,8 @@ public class Funcionario {
     @Column(name = "fun_nome")
     private String nome;
     
-    @OneToOne
-    @JoinColumn(name = "fun_codigoUsr")
+    @OneToOne(mappedBy = "funcionario")
+    //@JoinColumn(name = "fun_codigoUsr")
     private Usuario usuario;
 
     public Funcionario() {
@@ -68,12 +68,14 @@ public class Funcionario {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
 
     @Override
     public String toString() {
-        return "Funcionario{" + "id=" + id + ", nome=" + nome + '}';
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", usuario=" + usuario + '}';
     }
+    
+
+    
     
     
     

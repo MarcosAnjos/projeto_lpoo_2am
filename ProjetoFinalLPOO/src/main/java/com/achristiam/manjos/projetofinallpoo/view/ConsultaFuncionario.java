@@ -13,6 +13,7 @@ public class ConsultaFuncionario extends ConsultaPadrao {
 
     // atributos
     private List<Funcionario> funcionarioss;
+    private List<Usuario> usuarioss;
     private FuncionarioController funcionarioController;
     private Usuario usuario;
     private UsuarioController usuarioController;
@@ -31,14 +32,14 @@ public class ConsultaFuncionario extends ConsultaPadrao {
     @Override
     public Vector getLinhas() {
         Vector linhas = new Vector();
-        funcionarioController = new FuncionarioController();
-        funcionarioss = funcionarioController.buscarTodos();
+        usuarioController = new UsuarioController();
+        usuarioss = usuarioController.buscarTodos();
 
-        for (Funcionario f : funcionarioss) {
+        for (Usuario u : usuarioss) {
             Vector linha = new Vector();
-            linha.add(f.getId());
-            linha.add(f.getNome());
-            linha.add(f.getUsuario().getLogin());
+            linha.add(u.getFuncionario().getId());
+            linha.add(u.getFuncionario().getNome());
+            linha.add(u.getLogin());
             linha.add("*******");
             linhas.add(linha);
         }
@@ -48,8 +49,8 @@ public class ConsultaFuncionario extends ConsultaPadrao {
 
     @Override
     public Object getObjetoSelecionado(int posicao) {
-        Funcionario c = new Funcionario();
-        c = (Funcionario) funcionarioss.get(posicao);
-        return c;
+        Usuario u = new Usuario();
+        u = (Usuario) usuarioss.get(posicao);
+        return u;
     }
 }

@@ -82,10 +82,10 @@ public class CadastroFuncionario extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     gravar = true;
-                    fun = getObjetoFromCampos();
-                    usr = fun.getUsuario();
-                    usuarioController.gravar(usr);
+                    usr = getObjetoFromCampos();
+                    fun = usr.getFuncionario();
                     funcionarioController.gravar(fun);
+                    usuarioController.gravar(usr);
                     JOptionPane.showMessageDialog(null, "O Funcionario foi cadastrado com sucesso!");
                     limpaCampos();
                 }
@@ -97,9 +97,9 @@ public class CadastroFuncionario extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     if (camposValidos()) {
-                        fun = getObjetoFromCampos();
-                        usuarioController.atualizar(fun.getUsuario());
-                        funcionarioController.atualizar(fun);
+                        usr = getObjetoFromCampos();
+                        funcionarioController.atualizar(usr.getFuncionario());
+                        usuarioController.atualizar(usr);
                         jbAlterar.setEnabled(false);
                         jbExcluir.setEnabled(false);
                         jbGravar.setEnabled(true);
@@ -149,21 +149,22 @@ public class CadastroFuncionario extends CadastroPadrao {
         return true;
     }
 
-    public Funcionario getObjetoFromCampos() {
+    public Usuario getObjetoFromCampos() {
         if(gravar) {
             fun = new Funcionario();
             usr = new Usuario();
         }
         else{
-            usr = fun.getUsuario();
+           fun = usr.getFuncionario();
         }
         fun.setNome(jtfNome.getText());
         usr.setLogin(jtfLogin.getText());
         usr.setSenha(jtfSenha.getText());
-        fun.setUsuario(usr);
+        usr.setFuncionario(fun);
+        //fun.setUsuario(usr);
 
         gravar = false;
-        return fun;
+        return usr;
     }
 	
     public void limpaCampos() {
@@ -175,12 +176,12 @@ public class CadastroFuncionario extends CadastroPadrao {
 
     public void preencheCampos(Object obj) {
         limpaCampos();
-        fun = (Funcionario) obj;
+        usr = (Usuario) obj;
 
-        this.jtfCodigo.setText(String.valueOf(fun.getId()));
-        this.jtfNome.setText(fun.getNome());
-        this.jtfLogin.setText(fun.getUsuario().getLogin());
-        this.jtfSenha.setText(fun.getUsuario().getSenha());
+        this.jtfCodigo.setText(String.valueOf(usr.getFuncionario().getId()));
+        this.jtfNome.setText(usr.getFuncionario().getNome());
+        this.jtfLogin.setText(usr.getLogin());
+        this.jtfSenha.setText(usr.getSenha());
     }
 
 }

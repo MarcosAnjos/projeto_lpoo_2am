@@ -32,16 +32,16 @@ public class Usuario {
     @Column(name = "usr_senha")
     private String senha;
     
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne()
+    @JoinColumn(name = "usr_codigoFun")
     private Funcionario funcionario;
 
     public Usuario() {
     }
     
-    public Usuario(String login, String senha, Funcionario funcionario) {
+    public Usuario(String login, String senha) {
         this.login = login;
         this.senha = senha;
-        this.funcionario = funcionario;
     }
 
     public Long getId() {

@@ -27,10 +27,14 @@ import java.util.Date;
 public class InicializarBanco {
     
     public static void inicializarAdmin(){
+        FuncionarioController fc = new FuncionarioController();
         UsuarioController uc = new UsuarioController();
         Usuario u = new Usuario();
+        Funcionario fun = new Funcionario("Administrador");
+        fc.gravar(fun);
         u.setLogin("admin");
         u.setSenha("admin");
+        u.setFuncionario(fun);
         uc.gravar(u);
     }
     
