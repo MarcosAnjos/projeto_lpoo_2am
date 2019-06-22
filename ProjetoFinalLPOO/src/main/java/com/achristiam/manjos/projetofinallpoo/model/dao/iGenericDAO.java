@@ -14,6 +14,7 @@ import java.util.List;
 public interface iGenericDAO<T> {
     void save(T object);
     T listOne(String pkname, int pkValue, Class clazz);
+    T listOne(String pkName, String pkValue, Class clazz);
     T listOne(Long pkValue, Class clazz);
     List listAll(Class clazz);
     void update(T object);
