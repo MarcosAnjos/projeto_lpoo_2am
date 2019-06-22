@@ -1,15 +1,16 @@
 package com.achristiam.manjos.projetofinallpoo.view;
 
-import com.achristiam.manjos.projetofinallpoo.InicializarBanco;
 import com.achristiam.manjos.projetofinallpoo.controller.SistemaController;
 import com.achristiam.manjos.projetofinallpoo.model.bo.SingletonUsuario;
-import com.achristiam.manjos.projetofinallpoo.model.dao.ConexaoHibernate;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ public class Sistema extends JFrame {
     private JMenu mOpcoes;
     private JDesktopPane telaInterna;
 
+    
     
     public Sistema() {
         super("Sistemãooo");
@@ -40,7 +42,8 @@ public class Sistema extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getRootPane().setJMenuBar(jmBarraMenus);
 
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // Iniciar com tela maximizada
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // exibe a tela
         this.add(telaInterna);
@@ -53,14 +56,17 @@ public class Sistema extends JFrame {
 
         JMenuItem miCliente = new JMenuItem();
         JMenuItem miFuncionario = new JMenuItem();
+        JMenuItem miProduto = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
         miFuncionario.setText("Funcionario");
+        miProduto.setText("Produto");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
         mOpcoes.add(miFuncionario);
+        mOpcoes.add(miProduto);
 
         telaInterna.setLayout(new BorderLayout());
 
@@ -80,6 +86,21 @@ public class Sistema extends JFrame {
                 public void actionPerformed(ActionEvent ev) {
                     CadastroFuncionario cadFuncionario = new CadastroFuncionario();
                     telaInterna.add(cadFuncionario);
+                }
+            }
+        );
+        
+        miProduto.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroProduto cadProduto = null;
+                    try {
+                        cadProduto = new CadastroProduto();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    telaInterna.add(cadProduto);
                 }
             }
         );
