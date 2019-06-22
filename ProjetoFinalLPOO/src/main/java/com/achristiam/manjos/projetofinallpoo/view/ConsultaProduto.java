@@ -18,9 +18,11 @@ public class ConsultaProduto extends ConsultaPadrao {
     public Vector getCabecalho() {
         Vector cab = new Vector();
         cab.add("Código");
-        cab.add("Nome");
-        cab.add("Login");
-        cab.add("Senha");
+        cab.add("Descrição");
+        cab.add("Valor Compra");
+        cab.add("Valor Venda");
+        cab.add("Valor Serviço");
+        cab.add("Quantidade");
         return cab;
     }
 
@@ -46,8 +48,8 @@ public class ConsultaProduto extends ConsultaPadrao {
 
     @Override
     public Object getObjetoSelecionado(int posicao) {
-        Produto c = new Produto();
-        c = (Produto) produtoss.get(posicao);
-        return c;
+        Produto p = new Produto();
+        p = (Produto) produtoss.get(posicao);
+        return p;
     }
 }
