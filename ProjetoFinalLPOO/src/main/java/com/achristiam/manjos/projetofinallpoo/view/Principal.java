@@ -41,7 +41,6 @@ public class Principal {
         usr.setSenha("admin");
         
         usr.setFuncionario(fun1);
-        fun1.setUsuario(usr);
 
         fc.gravar(fun1);        
         uc.gravar(usr);

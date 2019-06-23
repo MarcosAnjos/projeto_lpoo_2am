@@ -1,5 +1,6 @@
 package com.achristiam.manjos.projetofinallpoo.view;
 
+import com.achristiam.manjos.projetofinallpoo.InicializarBanco;
 import com.achristiam.manjos.projetofinallpoo.controller.SistemaController;
 import com.achristiam.manjos.projetofinallpoo.model.bo.SingletonUsuario;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Usuario;
@@ -29,15 +30,22 @@ public class Sistema extends JFrame {
     
     public Sistema() {
         super("Sistemãooo");
+        
+        //InicializarBanco.inicializar();
+        
         telaInterna = new JDesktopPane();
         
         Usuario usuario = SingletonUsuario.getInstance();
-        System.out.println(usuario.toString());
+        if(usuario == null) {
+            return;
+        }
+        
+        System.out.println(usuario.getLogin());
 
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
         
-        this.setSize(670, 500);
+        this.setSize(650, 550);
         this.setLocation((d.width/2) - (670/2), (d.height/2) - (500/2));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getRootPane().setJMenuBar(jmBarraMenus);
@@ -57,16 +65,19 @@ public class Sistema extends JFrame {
         JMenuItem miCliente = new JMenuItem();
         JMenuItem miFuncionario = new JMenuItem();
         JMenuItem miProduto = new JMenuItem();
+        JMenuItem miVenda = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
         miFuncionario.setText("Funcionario");
         miProduto.setText("Produto");
+        miVenda.setText("Venda");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
         mOpcoes.add(miFuncionario);
         mOpcoes.add(miProduto);
+        mOpcoes.add(miVenda);
 
         telaInterna.setLayout(new BorderLayout());
 
@@ -104,14 +115,24 @@ public class Sistema extends JFrame {
                 }
             }
         );
+        
+        miVenda.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroVenda cadVenda = new CadastroVenda();
+                    telaInterna.add(cadVenda);
+                }
+            }
+        );
 
         this.setVisible(true);
     }
 
-//    public static void main(String[] args) {
-//        SistemaController.iniciarSistema();
-//        //InicializarBanco.inicializarAdmin();
-//        new Sistema();
-//        //ConexaoHibernate.close();
-//    }
+    public static void main(String[] args) {
+        SistemaController.iniciarSistema();
+        InicializarBanco.inicializarAdmin();
+        new Sistema();
+        //ConexaoHibernate.close();
+    }
 }

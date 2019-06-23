@@ -35,6 +35,7 @@ public class Login extends JFrame {
     private JTextField jtfLogin = new JTextField();
     private JPasswordField jtfSenha = new JPasswordField();
     
+    
     public Login(){
         super("Login");
         
@@ -115,6 +116,7 @@ public class Login extends JFrame {
     public static void main(String[] args) {
         SistemaController.iniciarSistema();
         InicializarBanco.inicializarAdmin();
+        InicializarBanco.inicializar();
         new Login();
     }
 }
