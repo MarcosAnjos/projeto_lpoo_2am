@@ -27,13 +27,13 @@ public class Produto {
     @Column(name = "pro_descricao")
     private String descricao;
     
-    @Column(name = "pro_valCompra", precision = 2)
+    @Column(name = "pro_valCompra", scale = 2)
     private double valorCompra;
     
-    @Column(name = "pro_valVenda", precision = 2)
+    @Column(name = "pro_valVenda", scale = 2)
     private double valorVenda;
     
-    @Column(name = "pro_valServico", precision = 2)
+    @Column(name = "pro_valServico", scale = 2)
     private double valorServico;
     
     @Column(name = "pro_quantEstoque")
@@ -65,14 +65,6 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public double getValor() {
-        return valorCompra;
-    }
-
-    public void setValor(double valor) {
-        this.valorCompra = valor;
     }
 
     public double getValorCompra() {

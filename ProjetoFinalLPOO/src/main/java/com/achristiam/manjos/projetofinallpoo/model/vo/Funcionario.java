@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,19 +29,15 @@ public class Funcionario {
     @Column(name = "fun_nome")
     private String nome;
     
-    @Column(name = "fun_login")
-    private String login;
-    
-    @Column(name = "fun_senha")
-    private String senha;
+    @OneToOne(mappedBy = "funcionario")
+//    //@JoinColumn(name = "fun_codigoUsr")
+    private Usuario usuario;
 
     public Funcionario() {
     }
 
     public Funcionario(String nome, String login, String senha) {
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
     }
 
     public Funcionario(String nome) {
@@ -63,26 +60,21 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public String getLogin() {
-        return login;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public String toString() {
-        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + '}';
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + '}';
     }
+    
+
+    
     
     
     

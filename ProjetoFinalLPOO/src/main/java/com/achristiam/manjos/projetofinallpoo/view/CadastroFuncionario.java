@@ -1,7 +1,9 @@
 package com.achristiam.manjos.projetofinallpoo.view;
 
-import com.achristiam.manjos.projetofinallpoo.controller.ClienteController;
-import com.achristiam.manjos.projetofinallpoo.model.vo.Cliente;
+import com.achristiam.manjos.projetofinallpoo.controller.FuncionarioController;
+import com.achristiam.manjos.projetofinallpoo.controller.UsuarioController;
+import com.achristiam.manjos.projetofinallpoo.model.vo.Funcionario;
+import com.achristiam.manjos.projetofinallpoo.model.vo.Usuario;
 import com.achristiam.manjos.projetofinallpoo.view.model.CadastroPadrao;
 
 import java.awt.BorderLayout;
@@ -11,24 +13,26 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class CadastroCliente extends CadastroPadrao {
+public class CadastroFuncionario extends CadastroPadrao {
 
     private static final long serialVersionUID = 1L;
 
     private JPanel jpCampos;
-    private JLabel jlCodigo, jlNome;
-    private JTextField jtfCodigo, jtfNome;
+    private JLabel jlCodigo, jlNome, jlLogin, jlSenha;
+    private JTextField jtfCodigo, jtfNome, jtfLogin;
+    private JPasswordField jtfSenha;
 
-    private ClienteController clienteController = new ClienteController();
-    private Cliente cli;
-    
+    private FuncionarioController funcionarioController = new FuncionarioController();
+    private Funcionario fun = new Funcionario();
+    private UsuarioController usuarioController = new UsuarioController();
+    private Usuario usr = new Usuario();
     private boolean gravar;
     
-    public CadastroCliente() {
-        super("Cadastro de Cliente", true, true, true, true);
-        
+    public CadastroFuncionario() {
+        super("Cadastro de Funcionario", true, true, true, true);
         gravar = false;
         
         jpCampos = new JPanel();
@@ -38,6 +42,10 @@ public class CadastroCliente extends CadastroPadrao {
         jtfCodigo.setEditable(false);
         jlNome = new JLabel("Nome");
         jtfNome = new JTextField(30);
+        jlLogin = new JLabel("Login");
+        jtfLogin = new JTextField(30);
+        jlSenha = new JLabel("Senha");
+        jtfSenha = new JPasswordField();
 
         this.setLayout(new BorderLayout());
         jpCampos.setLayout(null);
@@ -45,12 +53,20 @@ public class CadastroCliente extends CadastroPadrao {
         jpCampos.add(jtfCodigo);
         jpCampos.add(jlNome);
         jpCampos.add(jtfNome);
+        jpCampos.add(jlLogin);
+        jpCampos.add(jtfLogin);
+        jpCampos.add(jlSenha);
+        jpCampos.add(jtfSenha);
 
         // posicao dos componentes
         jlCodigo.setBounds(15, 30, 65, 25);  // MD, MS, Lrg ,Alt
         jtfCodigo.setBounds(100, 30, 100, 25);
         jlNome.setBounds(15, 60, 65, 25);
         jtfNome.setBounds(100, 60, 100, 25);
+        jlLogin.setBounds(15, 90, 65, 25);
+        jtfLogin.setBounds(100, 90, 100, 25);
+        jlSenha.setBounds(15, 120, 65, 25);
+        jtfSenha.setBounds(100, 120, 100, 25);
 
         this.add(jpBotoes, BorderLayout.SOUTH);
         jpBotoes.setVisible(true);
@@ -66,8 +82,11 @@ public class CadastroCliente extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     gravar = true;
-                    clienteController.gravar(getObjetoFromCampos());
-                    JOptionPane.showMessageDialog(null, "O Cliente foi cadastrado com sucesso!");
+                    usr = getObjetoFromCampos();
+                    fun = usr.getFuncionario();
+                    funcionarioController.gravar(fun);
+                    usuarioController.gravar(usr);
+                    JOptionPane.showMessageDialog(null, "O Funcionario foi cadastrado com sucesso!");
                     limpaCampos();
                 }
             }
@@ -78,12 +97,14 @@ public class CadastroCliente extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     if (camposValidos()) {
-                        clienteController.atualizar(getObjetoFromCampos());
+                        usr = getObjetoFromCampos();
+                        funcionarioController.atualizar(usr.getFuncionario());
+                        usuarioController.atualizar(usr);
                         jbAlterar.setEnabled(false);
                         jbExcluir.setEnabled(false);
                         jbGravar.setEnabled(true);
                         limpaCampos();
-                        JOptionPane.showMessageDialog(null, "O Cliente foi alterado com sucesso!");
+                        JOptionPane.showMessageDialog(null, "O Funcionario foi alterado com sucesso!");
                     }
                 }
             }
@@ -93,12 +114,13 @@ public class CadastroCliente extends CadastroPadrao {
         jbExcluir.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
-                    clienteController.remover(cli);
+                    funcionarioController.remover(usr.getFuncionario());
+                    usuarioController.remover(usr);
                     limpaCampos();
                     jbAlterar.setEnabled(false);
                     jbExcluir.setEnabled(false);
                     jbGravar.setEnabled(true);
-                    JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Funcionario excluido com sucesso!");
                 }
             }
         );
@@ -108,11 +130,11 @@ public class CadastroCliente extends CadastroPadrao {
             new ActionListener() {
 
                 public void actionPerformed(ActionEvent ev) {
-                    ConsultaCliente cCli = new ConsultaCliente();
-                    cCli.setModal(true);
-                    cCli.setVisible(true);
-                    if (cCli.getObjetoSelecionado() != null) {
-                        preencheCampos(cCli.getObjetoSelecionado());
+                    ConsultaFuncionario cFun = new ConsultaFuncionario();
+                    cFun.setModal(true);
+                    cFun.setVisible(true);
+                    if (cFun.getObjetoSelecionado() != null) {
+                        preencheCampos(cFun.getObjetoSelecionado());
                         jbAlterar.setEnabled(true);
                         jbExcluir.setEnabled(true);
                         jbGravar.setEnabled(false);
@@ -127,25 +149,39 @@ public class CadastroCliente extends CadastroPadrao {
         return true;
     }
 
-    public Cliente getObjetoFromCampos() {
-        if(gravar) cli = new Cliente();
-        cli.setNome(jtfNome.getText());
+    public Usuario getObjetoFromCampos() {
+        if(gravar) {
+            fun = new Funcionario();
+            usr = new Usuario();
+        }
+        else{
+           fun = usr.getFuncionario();
+        }
+        fun.setNome(jtfNome.getText());
+        usr.setLogin(jtfLogin.getText());
+        usr.setSenha(jtfSenha.getText());
+        usr.setFuncionario(fun);
+        //fun.setUsuario(usr);
 
         gravar = false;
-        return cli;
+        return usr;
     }
 	
     public void limpaCampos() {
         this.jtfCodigo.setText("");
         this.jtfNome.setText("");
+        this.jtfLogin.setText("");
+        this.jtfSenha.setText("");
     }
 
     public void preencheCampos(Object obj) {
         limpaCampos();
-        cli = (Cliente) obj;
+        usr = (Usuario) obj;
 
-        this.jtfCodigo.setText(String.valueOf(cli.getId()));
-        this.jtfNome.setText(cli.getNome());
+        this.jtfCodigo.setText(String.valueOf(usr.getFuncionario().getId()));
+        this.jtfNome.setText(usr.getFuncionario().getNome());
+        this.jtfLogin.setText(usr.getLogin());
+        this.jtfSenha.setText(usr.getSenha());
     }
 
 }

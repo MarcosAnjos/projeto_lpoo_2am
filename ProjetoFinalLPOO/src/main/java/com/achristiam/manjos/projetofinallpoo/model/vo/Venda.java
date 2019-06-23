@@ -47,6 +47,9 @@ public class Venda {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ven_codFuncionario")
     private Funcionario funcionario;
+    
+    @Column(name = "ven_valTotal", precision = 2)
+    private double valorTotal;
 
     public Venda() {
     }
@@ -106,6 +109,16 @@ public class Venda {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+    
+    
 
     @Override
     public String toString() {

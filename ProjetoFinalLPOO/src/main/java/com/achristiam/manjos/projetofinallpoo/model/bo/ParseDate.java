@@ -11,15 +11,22 @@ import java.util.Date;
 
 /**
  *
- * @author allainnc
+ * @author Internet
  */
 public class ParseDate {
+
     public static Date parseDate(String date) {
-     try {
-         return new SimpleDateFormat("dd/MM/yyyy").parse(date);
-     } catch (ParseException e) {
-         System.out.println("Erro");
-         return null;
-     }
-  }
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(date);
+        } catch (ParseException e) {
+            System.out.println("Erro");
+            return null;
+        }
+    }
+    
+    public static String parseString(Date date){
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+    }
+    
+    
 }
