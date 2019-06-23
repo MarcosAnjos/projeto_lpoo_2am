@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,7 +30,7 @@ public class Funcionario {
     private String nome;
     
     @OneToOne(mappedBy = "funcionario")
-    //@JoinColumn(name = "fun_codigoUsr")
+//    //@JoinColumn(name = "fun_codigoUsr")
     private Usuario usuario;
 
     public Funcionario() {
@@ -71,7 +70,7 @@ public class Funcionario {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", usuario=" + usuario + '}';
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + '}';
     }
     
 

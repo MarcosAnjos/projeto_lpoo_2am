@@ -40,7 +40,7 @@ public class ConsultaFuncionario extends ConsultaPadrao {
             linha.add(u.getFuncionario().getId());
             linha.add(u.getFuncionario().getNome());
             linha.add(u.getLogin());
-            linha.add("*******");
+            linha.add("****");
             linhas.add(linha);
         }
 

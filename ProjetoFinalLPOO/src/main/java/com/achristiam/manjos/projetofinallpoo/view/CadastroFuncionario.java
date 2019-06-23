@@ -114,8 +114,8 @@ public class CadastroFuncionario extends CadastroPadrao {
         jbExcluir.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
-                    funcionarioController.remover(fun);
-                    usuarioController.remover(fun.getUsuario());
+                    funcionarioController.remover(usr.getFuncionario());
+                    usuarioController.remover(usr);
                     limpaCampos();
                     jbAlterar.setEnabled(false);
                     jbExcluir.setEnabled(false);

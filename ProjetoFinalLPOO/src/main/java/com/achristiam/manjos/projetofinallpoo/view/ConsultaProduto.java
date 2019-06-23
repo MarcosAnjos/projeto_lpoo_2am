@@ -3,12 +3,15 @@ package com.achristiam.manjos.projetofinallpoo.view;
 import com.achristiam.manjos.projetofinallpoo.controller.ProdutoController;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Produto;
 import com.achristiam.manjos.projetofinallpoo.view.model.ConsultaPadrao;
+import java.text.NumberFormat;
 import java.util.List;
 
 import java.util.Vector;
 
 public class ConsultaProduto extends ConsultaPadrao {
 
+    //NumberFormat z = NumberFormat.getCurrencyInstance();
+    
     // atributos
     private List<Produto> produtoss;
     private ProdutoController produtoController;
