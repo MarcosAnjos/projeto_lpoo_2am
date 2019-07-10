@@ -21,6 +21,9 @@ import com.achristiam.manjos.projetofinallpoo.model.vo.Usuario;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Venda;
 import com.achristiam.manjos.projetofinallpoo.model.vo.VendaProduto;
 import java.util.List;
+import javafx.scene.image.Image;
+import javax.swing.ImageIcon;
+import org.jboss.jandex.Main;
 
 /**
  *
@@ -30,31 +33,39 @@ public class Principal {
     
     public static void main(String[] args) {
         InicializarBanco.inicializar();
+  
+        Image img = new Image("/home/allainnc/Imagens/icon.png");
+        
+        ImageIcon im = new ImageIcon();
+        
+        if(img == null) System.out.println("Bugo");
+        else System.out.println("Nao bugo");
+        
         
         //InicializarBanco.inicializarAdmin();
-        GenericDAO<Usuario> genericDao = new GenericDAO<Usuario>();
-        UsuarioController uc = new UsuarioController();
-        FuncionarioController fc = new FuncionarioController();
-        Usuario usr = new Usuario();
-        Funcionario fun1 = new Funcionario("João da Silva");
-        usr.setLogin("admin");
-        usr.setSenha("admin");
-        
-        usr.setFuncionario(fun1);
-
-        fc.gravar(fun1);        
-        uc.gravar(usr);
-        
-        
-        //usr = (Usuario) genericDao.listOne("usr_codigo", 1, Usuario.class);
-        
-        usr = uc.buscar("admin");
-        fun1 = fc.buscarUm(4L);
-        
-        //System.out.println(usr.getClass().getSimpleName());
-
-        System.out.println(usr.toString());
-        System.out.println(fun1.toString());
+//        GenericDAO<Usuario> genericDao = new GenericDAO<Usuario>();
+//        UsuarioController uc = new UsuarioController();
+//        FuncionarioController fc = new FuncionarioController();
+//        Usuario usr = new Usuario();
+//        Funcionario fun1 = new Funcionario("João da Silva");
+//        usr.setLogin("admin");
+//        usr.setSenha("admin");
+//        
+//        usr.setFuncionario(fun1);
+//
+//        fc.gravar(fun1);        
+//        uc.gravar(usr);
+//        
+//        
+//        //usr = (Usuario) genericDao.listOne("usr_codigo", 1, Usuario.class);
+//        
+//        usr = uc.buscar("admin");
+//        fun1 = fc.buscarUm(4L);
+//        
+//        //System.out.println(usr.getClass().getSimpleName());
+//
+//        System.out.println(usr.toString());
+//        System.out.println(fun1.toString());
         
         
 //        ClienteController cliC = new ClienteController();

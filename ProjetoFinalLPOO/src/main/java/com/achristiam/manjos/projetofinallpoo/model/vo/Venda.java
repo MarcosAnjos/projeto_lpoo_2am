@@ -37,8 +37,6 @@ public class Venda {
     @Temporal(TemporalType.DATE)
     private Date data;
     
-    @Column(name = "ven_desconto", precision = 2)
-    private double desconto;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ven_codCliente")
@@ -54,13 +52,22 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(String formaPagamento, Date data, double desconto, Cliente cliente, Funcionario funcionario) {
+    public Venda(String formaPagamento, Date data, Cliente cliente, Funcionario funcionario) {
         this.formaPagamento = formaPagamento;
         this.data = data;
-        this.desconto = desconto;
         this.cliente = cliente;
         this.funcionario = funcionario;
     }
+
+    public Venda(String formaPagamento, Date data, Cliente cliente, Funcionario funcionario, double valorTotal) {
+        this.formaPagamento = formaPagamento;
+        this.data = data;
+        this.cliente = cliente;
+        this.funcionario = funcionario;
+        this.valorTotal = valorTotal;
+    }
+    
+    
 
     public Long getId() {
         return id;
@@ -86,13 +93,6 @@ public class Venda {
         this.data = data;
     }
 
-    public double getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(double desconto) {
-        this.desconto = desconto;
-    }
 
     public Cliente getCliente() {
         return cliente;
@@ -122,7 +122,7 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Venda{" + "id=" + id + ", formaPagamento=" + formaPagamento + ", data=" + data + ", desconto=" + desconto + ", cliente=" + cliente + ", funcionario=" + funcionario + '}';
+        return "Venda{" + "id=" + id + ", formaPagamento=" + formaPagamento + ", data=" + data + ", cliente=" + cliente + ", funcionario=" + funcionario + '}';
     }
     
     
