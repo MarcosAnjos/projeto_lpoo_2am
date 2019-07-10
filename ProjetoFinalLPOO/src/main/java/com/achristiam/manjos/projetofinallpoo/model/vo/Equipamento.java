@@ -5,16 +5,37 @@
  */
 package com.achristiam.manjos.projetofinallpoo.model.vo;
 
+import javax.annotation.Generated;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author allainnc
  */
+@Entity
+@Table(name = "tb_Equipamento")
 public class Equipamento {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "equ_codigo")
     private int id;
+    
+    @Column(name = "equ_descricao")
     private String descricao;
+    
+    @Column(name = "equ_funcao")
     private String funcao;
+    
+    @Column(name = "equ_observacao")
     private String observacao;
+    
+    @Column(name = "equ_status")
     private boolean status;
 
     public Equipamento() {

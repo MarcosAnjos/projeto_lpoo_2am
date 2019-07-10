@@ -66,18 +66,21 @@ public class Sistema extends JFrame {
         JMenuItem miFuncionario = new JMenuItem();
         JMenuItem miProduto = new JMenuItem();
         JMenuItem miVenda = new JMenuItem();
+        JMenuItem miEquipamento = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
         miFuncionario.setText("Funcionario");
         miProduto.setText("Produto");
         miVenda.setText("Venda");
+        miEquipamento.setText("Equipamento");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
         mOpcoes.add(miFuncionario);
         mOpcoes.add(miProduto);
         mOpcoes.add(miVenda);
+        mOpcoes.add(miEquipamento);
 
         telaInterna.setLayout(new BorderLayout());
 
@@ -125,14 +128,24 @@ public class Sistema extends JFrame {
                 }
             }
         );
+        
+        miEquipamento.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroEquipamento cadEquipamento = new CadastroEquipamento();
+                    telaInterna.add(cadEquipamento);
+                }
+            }
+        );
 
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SistemaController.iniciarSistema();
-        InicializarBanco.inicializarAdmin();
-        new Sistema();
-        //ConexaoHibernate.close();
-    }
+//    public static void main(String[] args) {
+//        SistemaController.iniciarSistema();
+//        InicializarBanco.inicializarAdmin();
+//        new Sistema();
+//        //ConexaoHibernate.close();
+//    }
 }
