@@ -24,12 +24,8 @@ public class CadastroCliente extends CadastroPadrao {
     private ClienteController clienteController = new ClienteController();
     private Cliente cli;
     
-    private boolean gravar;
-    
     public CadastroCliente() {
         super("Cadastro de Cliente", true, true, true, true);
-        
-        gravar = false;
         
         jpCampos = new JPanel();
 
@@ -65,7 +61,7 @@ public class CadastroCliente extends CadastroPadrao {
         jbGravar.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
-                    gravar = true;
+                    cli = new Cliente();
                     clienteController.gravar(getObjetoFromCampos());
                     JOptionPane.showMessageDialog(null, "O Cliente foi cadastrado com sucesso!");
                     limpaCampos();
@@ -128,10 +124,8 @@ public class CadastroCliente extends CadastroPadrao {
     }
 
     public Cliente getObjetoFromCampos() {
-        if(gravar) cli = new Cliente();
         cli.setNome(jtfNome.getText());
 
-        gravar = false;
         return cli;
     }
 	

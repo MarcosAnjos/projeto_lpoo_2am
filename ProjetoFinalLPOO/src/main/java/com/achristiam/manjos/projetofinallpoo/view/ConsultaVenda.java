@@ -24,7 +24,6 @@ public class ConsultaVenda extends ConsultaPadrao {
         cab.add("Código");
         cab.add("Data Venda");
         cab.add("Forma Pagamento");
-        cab.add("Desconto");
         cab.add("Valor Total");
         cab.add("Cliente");
         cab.add("Funcionario");
@@ -41,7 +40,6 @@ public class ConsultaVenda extends ConsultaPadrao {
             linha.add(v.getId());
             linha.add(ParseDate.parseString(v.getData()));
             linha.add(v.getFormaPagamento());
-            linha.add(v.getDesconto());
             linha.add(v.getValorTotal());
             linha.add(v.getCliente().getNome());
             linha.add(v.getFuncionario().getNome());

@@ -53,10 +53,11 @@ public class CadastroVenda extends CadastroPadrao {
     
     private JPanel jpCampos;
     private JLabel jlCodigo, jlData, jlProduto, jlQuantidade, jlTotal, jtfTotal;
-    private JLabel jlCliente, jlFuncionario;
+    private JLabel jlCliente, jlFuncionario, jlClienteNome, jlFormaPagamento;
+    private JLabel jtfFormaPagamentoRet;
     private JTextField jtfCodigo, jtfData, jtfQuantidade;
       
-    private JComboBox jtfProduto, jtfCliente;
+    private JComboBox jtfProduto, jtfCliente, jtfFormaPagamento;
 
     private JButton btAdicionar, btRemover;
     
@@ -78,14 +79,15 @@ public class CadastroVenda extends CadastroPadrao {
     private List<Produto> listProdutos;
     private List<Integer> quantidades;
     
+    private List<VendaProduto> vendaProdutos;
+    
+    private List<String> opcoes;
+    
     private Double total = 0.0;
     
     private Date hoje = new Date();
     
     DefaultTableModel model;
-
-    
-    private boolean gravar;
     
     public CadastroVenda() {
         super("Cadastro de Venda", true, true, true, true);
@@ -93,7 +95,14 @@ public class CadastroVenda extends CadastroPadrao {
         this.listProdutos = new ArrayList<>();
         this.quantidades = new ArrayList<>();
         
-        gravar = false;
+        this.vendaProdutos = new ArrayList<>();
+        
+        this.opcoes = new ArrayList<>();
+        
+        this.opcoes.add("Cartão de Credito");
+        this.opcoes.add("Cartão de Debito");
+        this.opcoes.add("Dinheiro");
+        
         
         jpCampos = new JPanel();
 
@@ -108,6 +117,7 @@ public class CadastroVenda extends CadastroPadrao {
             Logger.getLogger(CadastroVenda.class.getName()).log(Level.SEVERE, null, ex);
         }
         jlCliente = new JLabel("Cliente");
+        jlClienteNome = new JLabel();
         jtfCliente = new JComboBox();
         jlProduto = new JLabel("Produto");
         jtfProduto = new JComboBox();
@@ -118,8 +128,15 @@ public class CadastroVenda extends CadastroPadrao {
         jlTotal = new JLabel("Total");
         jtfTotal = new JLabel("R$ 0,00");
         
+        jlFormaPagamento = new JLabel("Forma de Pagamento");
+        jtfFormaPagamentoRet = new JLabel();
+        jtfFormaPagamentoRet.setVisible(false);
+        jtfFormaPagamento = new JComboBox();
+        
         jlTotal.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
         jtfTotal.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+        
+        
 
         jtDados = new JTable(null,getCabecalho());
         model = (DefaultTableModel)jtDados.getModel();
@@ -130,6 +147,7 @@ public class CadastroVenda extends CadastroPadrao {
         this.setLayout(new BorderLayout());
         jpCampos.setLayout(null);
         jpCampos.add(jlCodigo);
+        jpCampos.add(jlClienteNome);
         jpCampos.add(jtfCodigo);
         jpCampos.add(jlData);
         jpCampos.add(jtfData);
@@ -144,6 +162,10 @@ public class CadastroVenda extends CadastroPadrao {
         jpCampos.add(jlTotal);
         jpCampos.add(jtfTotal);
         jpCampos.add(jlFuncionario);
+        
+        jpCampos.add(jlFormaPagamento);
+        jpCampos.add(jtfFormaPagamentoRet);
+        jpCampos.add(jtfFormaPagamento);
         
         ComboBoxModel modelo;
         
@@ -178,17 +200,38 @@ public class CadastroVenda extends CadastroPadrao {
         }
         
         
+        try {
+            Vector linhas = new Vector();
+            
+            for (String op : opcoes) {
+                Vector linha = new Vector();
+                linha.add(op);
+                linhas.add(linha);
+            }
+            modelo = new DefaultComboBoxModel(linhas);
+            jtfFormaPagamento.setModel(modelo);
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        
         
         jpCampos.add(jspDados);
         
+        jlClienteNome.setVisible(false);
 
         // posicao dos componentes
         jlCodigo.setBounds(15, 40, 65, 25);  // MD, MS, Lrg ,Alt
         jtfCodigo.setBounds(100, 40, 100, 25);
+        
+        jlFormaPagamento.setBounds(450, 130, 170, 25);
+        jtfFormaPagamentoRet.setBounds(450, 160, 170, 25);
+        jtfFormaPagamento.setBounds(450, 160, 170, 25);
+        
         jlData.setBounds(15, 70, 65, 25);
         jtfData.setBounds(100, 70, 100, 25);
         jlCliente.setBounds(15, 100, 100, 25);
         jtfCliente.setBounds(100, 100, 150, 25);
+        jlClienteNome.setBounds(100, 100, 150, 25);
         jlProduto.setBounds(15, 130, 100, 25);
         jtfProduto.setBounds(100, 130, 150, 25);
         jlQuantidade.setBounds(15, 160, 100, 25);
@@ -276,12 +319,13 @@ public class CadastroVenda extends CadastroPadrao {
         jbGravar.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
-                    gravar = true;
+                    ven = new Venda();
                     ven = getObjetoFromCampos();
                     ven.setValorTotal(total);
                     vendaController.gravar(ven);
                     
                     for(int i = 0; i < quantidades.size(); i++){
+                        venProd = new VendaProduto();
                         venProd.setProduto(listProdutos.get(i));
                         venProd.setQuantidade(quantidades.get(i));
                         venProd.setValorVenda(listProdutos.get(i).getValorVenda());
@@ -296,35 +340,35 @@ public class CadastroVenda extends CadastroPadrao {
             }
         );
 
-        // ==============================================================
-        jbAlterar.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent ev) {
-                    if (camposValidos()) {
-                        vendaController.atualizar(getObjetoFromCampos());
-                        jbAlterar.setEnabled(false);
-                        jbExcluir.setEnabled(false);
-                        jbGravar.setEnabled(true);
-                        limpaCampos();
-                        JOptionPane.showMessageDialog(null, "O Venda foi alterado com sucesso!");
-                    }
-                }
-            }
-        );
-
-        //=================================================================
-        jbExcluir.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent ev) {
-                    vendaController.remover(ven);
-                    limpaCampos();
-                    jbAlterar.setEnabled(false);
-                    jbExcluir.setEnabled(false);
-                    jbGravar.setEnabled(true);
-                    JOptionPane.showMessageDialog(null, "Venda excluido com sucesso!");
-                }
-            }
-        );
+//        // ==============================================================
+//        jbAlterar.addActionListener(
+//            new ActionListener() {
+//                public void actionPerformed(ActionEvent ev) {
+//                    if (camposValidos()) {
+//                        vendaController.atualizar(getObjetoFromCampos());
+//                        jbAlterar.setEnabled(false);
+//                        jbExcluir.setEnabled(false);
+//                        jbGravar.setEnabled(true);
+//                        limpaCampos();
+//                        JOptionPane.showMessageDialog(null, "O Venda foi alterado com sucesso!");
+//                    }
+//                }
+//            }
+//        );
+//
+//        //=================================================================
+//        jbExcluir.addActionListener(
+//            new ActionListener() {
+//                public void actionPerformed(ActionEvent ev) {
+//                    vendaController.remover(ven);
+//                    limpaCampos();
+//                    jbAlterar.setEnabled(false);
+//                    jbExcluir.setEnabled(false);
+//                    jbGravar.setEnabled(true);
+//                    JOptionPane.showMessageDialog(null, "Venda excluido com sucesso!");
+//                }
+//            }
+//        );
 
         //=================================================================
         jbBuscar.addActionListener(
@@ -336,8 +380,10 @@ public class CadastroVenda extends CadastroPadrao {
                     cVen.setVisible(true);
                     if (cVen.getObjetoSelecionado() != null) {
                         preencheCampos(cVen.getObjetoSelecionado());
-                        jbAlterar.setEnabled(true);
-                        jbExcluir.setEnabled(true);
+//                        if(usr.getLogin() == "admin"){
+//                            jbAlterar.setEnabled(true);
+//                            jbExcluir.setEnabled(true);
+//                        }
                         jbGravar.setEnabled(false);
                     }
                 }
@@ -351,13 +397,10 @@ public class CadastroVenda extends CadastroPadrao {
     }
 
     public Venda getObjetoFromCampos() {
-        if(gravar) ven = new Venda();
         ven.setData(ParseDate.parseDate(jtfData.getText()));
         ven.setCliente((Cliente) getClienteSelecionado(jtfCliente.getSelectedIndex()));
         ven.setFuncionario(usr.getFuncionario());
-        ven.setDesconto(0.0);
-        ven.setFormaPagamento("");
-        gravar = false;
+        ven.setFormaPagamento(getFormaPagamentoSelecionado(jtfFormaPagamento.getSelectedIndex()));
         return ven;
     }
 	
@@ -371,14 +414,59 @@ public class CadastroVenda extends CadastroPadrao {
         total = 0.0;
         listProdutos.clear();
         quantidades.clear();
+        this.jtfCliente.setVisible(true);
+        this.jlClienteNome.setVisible(false);
+        this.jtfProduto.setVisible(true);
+        this.jtfQuantidade.setVisible(true);
+        this.btAdicionar.setVisible(true);
+        this.btRemover.setVisible(true);
+        this.jtfData.setEditable(true);
+        
+        this.jtfFormaPagamentoRet.setVisible(false);
+        this.jtfFormaPagamento.setVisible(true);
     }
 
     public void preencheCampos(Object obj) {
         limpaCampos();
         ven = (Venda) obj;
+        
+        this.jlFuncionario.setText(ven.getFuncionario().getNome());
 
         this.jtfCodigo.setText(String.valueOf(ven.getId()));
         this.jtfData.setText(ParseDate.parseString(ven.getData()));
+        this.jlClienteNome.setText(ven.getCliente().getNome());
+        this.jtfFormaPagamentoRet.setText(ven.getFormaPagamento());
+        
+        this.jtfData.setEditable(false);
+        this.jtfCliente.setVisible(false);
+        this.jlClienteNome.setVisible(true);
+        this.jtfProduto.setVisible(false);
+        this.jtfQuantidade.setVisible(false);
+        this.btAdicionar.setVisible(false);
+        this.btRemover.setVisible(false);
+        
+        this.jtfFormaPagamentoRet.setVisible(true);
+        this.jtfFormaPagamento.setVisible(false);
+        
+        
+        this.jtfTotal.setText(String.valueOf(z.format(ven.getValorTotal())));
+        
+        vendaProdutos = vendaProdutoController.buscarProdutosVenda(ven.getId().intValue());
+        System.out.println(vendaProdutos.get(1).toString());
+        
+        Vector linhas = new Vector();
+        for (VendaProduto vp : vendaProdutos) {
+            Vector linha = new Vector();
+            linha.add(vp.getProduto().getId());
+            linha.add(vp.getProduto().getDescricao());
+            linha.add(vp.getQuantidade());
+            linha.add(z.format(vp.getProduto().getValorVenda()));
+            linha.add(z.format(vp.getProduto().getValorVenda() * vp.getQuantidade()));
+            total += vp.getProduto().getValorVenda() * vp.getQuantidade();
+            model.addRow(linha);
+            jtDados.validate();
+        }
+        
     }
     
     public Vector getCabecalho() {
@@ -404,6 +492,10 @@ public class CadastroVenda extends CadastroPadrao {
         c = (Cliente) clientes.get(posicao);
         
         return c;
+    }
+    
+    public String getFormaPagamentoSelecionado(int posicao) {
+        return opcoes.get(posicao);
     }
 
 }

@@ -19,7 +19,7 @@ public class ValidarUsuario {
         UsuarioController  uc = new UsuarioController();
         Usuario usr = uc.buscar(login);
         if(usr == null) {
-            JOptionPane.showMessageDialog(null, "Usuario ou Senha Incorreto!");
+            JOptionPane.showMessageDialog(null, "Usuario Incorreto!");
             return false;
         }
         else {
@@ -29,7 +29,7 @@ public class ValidarUsuario {
                 return true;
             }
             else{
-                JOptionPane.showMessageDialog(null, "Usuario ou Senha Incorreto!");
+                JOptionPane.showMessageDialog(null, "Senha Incorreto!");
                 return false;
             }
         }

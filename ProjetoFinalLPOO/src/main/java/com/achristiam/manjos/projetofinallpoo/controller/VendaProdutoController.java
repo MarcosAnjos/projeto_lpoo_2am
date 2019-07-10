@@ -6,6 +6,7 @@
 package com.achristiam.manjos.projetofinallpoo.controller;
 
 import com.achristiam.manjos.projetofinallpoo.model.dao.GenericDAO;
+import com.achristiam.manjos.projetofinallpoo.model.vo.Venda;
 import com.achristiam.manjos.projetofinallpoo.model.vo.VendaProduto;
 import java.util.List;
 
@@ -37,6 +38,11 @@ public class VendaProdutoController {
     
     public List buscarTodos(){
         List<VendaProduto> vendaProdutos = (List<VendaProduto>) genericDao.listAll(VendaProduto.class);
+        return vendaProdutos;
+    }
+    
+    public List buscarProdutosVenda(int codVenda){
+        List<VendaProduto> vendaProdutos = (List<VendaProduto>) genericDao.listMany("venpro_codVenda", codVenda, VendaProduto.class);
         return vendaProdutos;
     }
     

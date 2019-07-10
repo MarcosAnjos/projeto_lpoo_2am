@@ -104,7 +104,7 @@ public class InicializarBanco {
         
         Date data = new Date();
         System.out.println(ParseDate.parseString(data));
-        Venda ven = new Venda("Dinheiro", ParseDate.parseDate("20/06/2019"), 1.00, cli2, fun3);
+        Venda ven = new Venda("Dinheiro", ParseDate.parseDate("20/06/2019"), cli2, fun3, 50.0);
         vc.gravar(ven);
         
         VendaProduto venpro1 = new VendaProduto(5, pro3.getValorVenda(), pro3, ven);

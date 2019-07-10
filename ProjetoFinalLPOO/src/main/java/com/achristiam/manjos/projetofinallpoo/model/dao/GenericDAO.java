@@ -41,6 +41,16 @@ public class GenericDAO<T> implements iGenericDAO<T>{
     }
     
     @Override
+    public List listMany(String pkName, int pkValue, Class clazz) {
+        String jpql = "SELECT t FROM " + clazz.getSimpleName() + " t WHERE " 
+                + pkName + " = " + pkValue;
+        Query query = this.manager.createQuery(jpql);
+        List<T> objs = query.getResultList();
+        
+        return objs;
+    }
+    
+    @Override
     public T listOne(String pkName, String pkValue, Class clazz) {
         String jpql = "SELECT t FROM " + clazz.getSimpleName() + " t WHERE " 
                 + pkName + " = " + "'" +pkValue+ "'";
