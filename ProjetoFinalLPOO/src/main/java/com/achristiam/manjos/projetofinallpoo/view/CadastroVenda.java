@@ -89,6 +89,8 @@ public class CadastroVenda extends CadastroPadrao {
     
     DefaultTableModel model;
     
+    ComboBoxModel modelo;
+    
     public CadastroVenda() {
         super("Cadastro de Venda", true, true, true, true);
         
@@ -167,7 +169,6 @@ public class CadastroVenda extends CadastroPadrao {
         jpCampos.add(jtfFormaPagamentoRet);
         jpCampos.add(jtfFormaPagamento);
         
-        ComboBoxModel modelo;
         
         try {
             Vector linhas = new Vector();
@@ -184,20 +185,7 @@ public class CadastroVenda extends CadastroPadrao {
                 e.printStackTrace();
         }
         
-        try {
-            Vector linhas = new Vector();
-            produtos = produtoController.buscarTodos();
-            
-            for (Produto p : produtos) {
-                Vector linha = new Vector();
-                linha.add(p.getDescricao());
-                linhas.add(linha);
-            }
-            modelo = new DefaultComboBoxModel(linhas);
-            jtfProduto.setModel(modelo);
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
+        preencherProdutos();
         
         
         try {
@@ -266,21 +254,40 @@ public class CadastroVenda extends CadastroPadrao {
                     try {
                         int quant = Integer.parseInt(jtfQuantidade.getText());
                         
-                        prod = (Produto) getProdutoSelecionado(jtfProduto.getSelectedIndex());
-                        listProdutos.add(prod);
-                        quantidades.add(quant);
-                        Vector linha = new Vector();
-                        linha.add(prod.getId());
-                        linha.add(prod.getDescricao());
-                        linha.add(quant);
-                        linha.add(z.format(prod.getValorVenda()));
-                        linha.add(z.format(prod.getValorVenda() * quant));
-                        total += prod.getValorVenda() * quant;
-                        model.addRow(linha);                      
-                        jtDados.validate();
+                        if(quant > 0) {
                         
-                        jtfTotal.setText(z.format(total));
-                        jtfQuantidade.setText("");
+                            prod = (Produto) getProdutoSelecionado(jtfProduto.getSelectedIndex());
+
+                            if(prod.getQuantidadeEstoque() - quant >= 0){
+
+                                prod.setQuantidadeEstoque(prod.getQuantidadeEstoque()-quant);
+
+                                produtos.set(jtfProduto.getSelectedIndex(),prod);
+
+                                quantidades.add(quant);
+                                listProdutos.add(prod);
+
+                                Vector linha = new Vector();
+                                linha.add(prod.getId());
+                                linha.add(prod.getDescricao());
+                                linha.add(quant);
+                                linha.add(z.format(prod.getValorVenda()));
+                                linha.add(z.format(prod.getValorVenda() * quant));
+                                total += prod.getValorVenda() * quant;
+                                model.addRow(linha);                      
+                                jtDados.validate();
+
+                                jtfTotal.setText(z.format(total));
+                                jtfQuantidade.setText("");
+                            } else {
+                                jtfQuantidade.setText("");
+                                JOptionPane.showMessageDialog(null, "Ultrapassou a quantidade do estoque");
+                            }
+                        } else {
+                            jtfQuantidade.setText("");
+                            JOptionPane.showMessageDialog(null, "Digite um valor maior que 0");
+                        }
+                       
 
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Preencha o campo quantidade");
@@ -326,7 +333,13 @@ public class CadastroVenda extends CadastroPadrao {
                     
                     for(int i = 0; i < quantidades.size(); i++){
                         venProd = new VendaProduto();
-                        venProd.setProduto(listProdutos.get(i));
+                        
+                        prod = produtoController.buscarUm(listProdutos.get(i).getId());
+                        prod.setQuantidadeEstoque(listProdutos.get(i).getQuantidadeEstoque());
+                        
+                        produtoController.atualizar(prod);
+                        
+                        venProd.setProduto(prod);
                         venProd.setQuantidade(quantidades.get(i));
                         venProd.setValorVenda(listProdutos.get(i).getValorVenda());
                         venProd.setVenda(ven);
@@ -336,6 +349,7 @@ public class CadastroVenda extends CadastroPadrao {
                     
                     JOptionPane.showMessageDialog(null, "O Venda foi cadastrado com sucesso!");
                     limpaCampos();
+                    preencherProdutos();
                 }
             }
         );
@@ -408,7 +422,11 @@ public class CadastroVenda extends CadastroPadrao {
         this.jtfCodigo.setText("");
         this.jtfData.setText(ParseDate.parseString(hoje));
         this.jtfCliente.setSelectedIndex(0);
-        this.jtfProduto.setSelectedIndex(0);
+        try{
+            this.jtfProduto.setSelectedIndex(0);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         this.jtfTotal.setText("R$ 0,00");
         while(model.getRowCount() > 0) model.removeRow(0);
         total = 0.0;
@@ -452,9 +470,8 @@ public class CadastroVenda extends CadastroPadrao {
         this.jtfTotal.setText(String.valueOf(z.format(ven.getValorTotal())));
         
         vendaProdutos = vendaProdutoController.buscarProdutosVenda(ven.getId().intValue());
-        System.out.println(vendaProdutos.get(1).toString());
+//        System.out.println(vendaProdutos.get(1).toString());
         
-        Vector linhas = new Vector();
         for (VendaProduto vp : vendaProdutos) {
             Vector linha = new Vector();
             linha.add(vp.getProduto().getId());
@@ -462,7 +479,6 @@ public class CadastroVenda extends CadastroPadrao {
             linha.add(vp.getQuantidade());
             linha.add(z.format(vp.getProduto().getValorVenda()));
             linha.add(z.format(vp.getProduto().getValorVenda() * vp.getQuantidade()));
-            total += vp.getProduto().getValorVenda() * vp.getQuantidade();
             model.addRow(linha);
             jtDados.validate();
         }
@@ -496,6 +512,29 @@ public class CadastroVenda extends CadastroPadrao {
     
     public String getFormaPagamentoSelecionado(int posicao) {
         return opcoes.get(posicao);
+    }
+
+    private void preencherProdutos() {
+        try {
+            Vector linhas = new Vector();
+            produtos = produtoController.buscarTodos();
+            
+            for (int i = 0;i < produtos.size();i++) {
+                if(produtos.get(i).getQuantidadeEstoque() > 0){
+                    Vector linha = new Vector();
+                    linha.add(produtos.get(i).getDescricao());
+                    linhas.add(linha);
+                }
+                else {
+                    produtos.remove(i);
+                    i--;
+                }
+            }
+            modelo = new DefaultComboBoxModel(linhas);
+            jtfProduto.setModel(modelo);
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
     }
 
 }
