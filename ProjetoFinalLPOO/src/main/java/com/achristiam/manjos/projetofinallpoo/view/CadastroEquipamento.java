@@ -1,6 +1,7 @@
 package com.achristiam.manjos.projetofinallpoo.view;
 
 import com.achristiam.manjos.projetofinallpoo.controller.EquipamentoController;
+import com.achristiam.manjos.projetofinallpoo.model.bo.JTextFieldSomenteNumeros;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Equipamento;
 import com.achristiam.manjos.projetofinallpoo.view.model.CadastroPadrao;
 
@@ -24,8 +25,8 @@ public class CadastroEquipamento extends CadastroPadrao {
     private static final long serialVersionUID = 1L;
 
     private JPanel jpCampos;
-    private JLabel jlCodigo, jlDescricao, jlFuncao, jlObservacao, jlStatus;
-    private JTextField jtfCodigo, jtfDescricao, jtfFuncao, jtfObservacao;
+    private JLabel jlCodigo, jlDescricao, jlFuncao, jlObservacao, jlStatus, jlValor;
+    private JTextField jtfCodigo, jtfDescricao, jtfFuncao, jtfObservacao, jtfValor;
     private JComboBox jtfStatus;
 
     private EquipamentoController equipamentoController = new EquipamentoController();
@@ -53,6 +54,8 @@ public class CadastroEquipamento extends CadastroPadrao {
         jtfFuncao = new JTextField(30);
         jlObservacao = new JLabel("Observação");
         jtfObservacao = new JTextField(30);
+        jlValor = new JLabel("Valor Serv");
+        jtfValor = new JTextFieldSomenteNumeros(true);
         jlStatus = new JLabel("Status");
         jtfStatus = new JComboBox();
 
@@ -66,6 +69,8 @@ public class CadastroEquipamento extends CadastroPadrao {
         jpCampos.add(jtfFuncao);
         jpCampos.add(jlObservacao);
         jpCampos.add(jtfObservacao);
+        jpCampos.add(jlValor);
+        jpCampos.add(jtfValor);
         jpCampos.add(jlStatus);
         jpCampos.add(jtfStatus);
         
@@ -93,8 +98,10 @@ public class CadastroEquipamento extends CadastroPadrao {
         jtfFuncao.setBounds(120, 90, 200, 25);
         jlObservacao.setBounds(15, 120, 85, 25);
         jtfObservacao.setBounds(120, 120, 200, 25);
-        jlStatus.setBounds(15, 150, 85, 25);
-        jtfStatus.setBounds(120, 150, 100, 25);
+        jlValor.setBounds(15, 150, 85, 25);
+        jtfValor.setBounds(120, 150, 200, 25);
+        jlStatus.setBounds(15, 180, 85, 25);
+        jtfStatus.setBounds(120, 180, 100, 25);
 
         this.add(jpBotoes, BorderLayout.SOUTH);
         jpBotoes.setVisible(true);
@@ -175,6 +182,7 @@ public class CadastroEquipamento extends CadastroPadrao {
         equ.setDescricao(jtfDescricao.getText());
         equ.setFuncao(jtfFuncao.getText());
         equ.setObservacao(jtfObservacao.getText());
+        equ.setValorServico(Double.valueOf(jtfValor.getText()));
         if(status.get(jtfStatus.getSelectedIndex()).equals("Ativado"))
             equ.setStatus(true);
         else
@@ -188,6 +196,7 @@ public class CadastroEquipamento extends CadastroPadrao {
         this.jtfDescricao.setText("");
         this.jtfFuncao.setText("");
         this.jtfObservacao.setText("");
+        this.jtfValor.setText("");
         this.jtfStatus.setSelectedIndex(0);
     }
 
@@ -199,6 +208,7 @@ public class CadastroEquipamento extends CadastroPadrao {
         this.jtfDescricao.setText(equ.getDescricao());
         this.jtfFuncao.setText(equ.getFuncao());
         this.jtfObservacao.setText(equ.getObservacao());
+        this.jtfValor.setText(String.valueOf(equ.getValorServico()));
         if(equ.isStatus())
             jtfStatus.setSelectedIndex(0);
         else

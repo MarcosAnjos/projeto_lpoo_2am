@@ -6,20 +6,22 @@
 package com.achristiam.manjos.projetofinallpoo;
 
 import com.achristiam.manjos.projetofinallpoo.controller.ClienteController;
+import com.achristiam.manjos.projetofinallpoo.controller.EquipamentoController;
 import com.achristiam.manjos.projetofinallpoo.controller.FuncionarioController;
 import com.achristiam.manjos.projetofinallpoo.controller.ProdutoController;
+import com.achristiam.manjos.projetofinallpoo.controller.TipoServicoController;
 import com.achristiam.manjos.projetofinallpoo.controller.UsuarioController;
 import com.achristiam.manjos.projetofinallpoo.controller.VendaController;
 import com.achristiam.manjos.projetofinallpoo.controller.VendaProdutoController;
 import com.achristiam.manjos.projetofinallpoo.model.bo.ParseDate;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Cliente;
+import com.achristiam.manjos.projetofinallpoo.model.vo.Equipamento;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Funcionario;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Produto;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Usuario;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Venda;
 import com.achristiam.manjos.projetofinallpoo.model.vo.VendaProduto;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -48,6 +50,8 @@ public class InicializarBanco {
         ProdutoController pc = new ProdutoController();
         VendaController vc = new VendaController();
         VendaProdutoController vpc = new VendaProdutoController();
+        TipoServicoController tsc = new TipoServicoController();
+        EquipamentoController ec = new EquipamentoController();
         
 
         Cliente cli1 = new Cliente("Jose");
@@ -114,6 +118,13 @@ public class InicializarBanco {
         VendaProduto venpro3 = new VendaProduto(2, pro1.getValorVenda(), pro1, ven);
         vpc.gravar(venpro3);
         
+        
+        
+        Equipamento equi1 = new Equipamento("Impressora", "Imprimir", "Observacao", 2.0, true);
+        ec.gravar(equi1);
+        
+        Equipamento equi2 = new Equipamento("Plotter", "Cortar", "Observacao", 1.5, true);
+        ec.gravar(equi2);
         
         
     }

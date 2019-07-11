@@ -20,6 +20,7 @@ public class ConsultaEquipamento extends ConsultaPadrao {
         cab.add("Descrição");
         cab.add("Função");
         cab.add("Observação");
+        cab.add("Valor Serv");
         cab.add("Status");
         return cab;
     }
@@ -35,6 +36,7 @@ public class ConsultaEquipamento extends ConsultaPadrao {
             linha.add(e.getDescricao());
             linha.add(e.getFuncao());
             linha.add(e.getObservacao());
+            linha.add(e.getValorServico());
             if(e.isStatus())
                 linha.add("Ativado");
             else

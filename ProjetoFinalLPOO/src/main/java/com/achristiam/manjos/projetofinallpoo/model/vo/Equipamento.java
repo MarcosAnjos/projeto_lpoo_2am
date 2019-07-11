@@ -35,17 +35,20 @@ public class Equipamento {
     @Column(name = "equ_observacao")
     private String observacao;
     
+    @Column(name = "equ_valorServico")
+    private double valorServico;
+    
     @Column(name = "equ_status")
     private boolean status;
 
     public Equipamento() {
     }
 
-    public Equipamento(int id, String descricao, String funcao, String observacao, boolean status) {
-        this.id = id;
+    public Equipamento(String descricao, String funcao, String observacao, double valorServico, boolean status) {
         this.descricao = descricao;
         this.funcao = funcao;
         this.observacao = observacao;
+        this.valorServico = valorServico;
         this.status = status;
     }
     
@@ -82,6 +85,16 @@ public class Equipamento {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
+    public double getValorServico() {
+        return valorServico;
+    }
+
+    public void setValorServico(double valorServico) {
+        this.valorServico = valorServico;
+    }
+    
+    
 
     public boolean isStatus() {
         return status;
