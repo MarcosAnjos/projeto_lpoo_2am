@@ -24,7 +24,7 @@ public class TipoServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tser_codigo")
-    private int id;
+    private Long id;
     
     @Column(name = "tser_descricao")
     private String descricao;
@@ -45,7 +45,7 @@ public class TipoServico {
     public TipoServico() {
     }
     
-    public TipoServico(int id, String descricao, double tempoMin, double custoMaoObra, double tempoTotal, double valorTotal) {
+    public TipoServico(Long id, String descricao, double tempoMin, double custoMaoObra, double tempoTotal, double valorTotal) {
         this.id = id;
         this.descricao = descricao;
         this.tempoMin = tempoMin;
@@ -55,11 +55,11 @@ public class TipoServico {
     }
 
     
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
