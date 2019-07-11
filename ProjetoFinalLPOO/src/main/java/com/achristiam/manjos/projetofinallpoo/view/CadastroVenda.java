@@ -226,11 +226,11 @@ public class CadastroVenda extends CadastroPadrao {
         jtfQuantidade.setBounds(100, 160, 100, 25);
         btAdicionar.setBounds(210, 160, 120, 25);
         
-        jspDados.setBounds(15, 190, 605, 200);
+        jspDados.setBounds(15, 190, 605, 380);
         
-        jlTotal.setBounds(15, 400, 100, 25);
-        jtfTotal.setBounds(90, 400, 250, 25);
-        btRemover.setBounds(500, 400, 120, 25);
+        jlTotal.setBounds(15, 580, 100, 25);
+        jtfTotal.setBounds(90, 580, 250, 25);
+        btRemover.setBounds(500, 580, 120, 25);
         
         jlFuncionario.setBounds(15, 8, 200, 25);
 

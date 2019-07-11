@@ -45,7 +45,7 @@ public class Sistema extends JFrame {
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
         
-        this.setSize(650, 550);
+        this.setSize(650, 730);
         this.setLocation((d.width/2) - (670/2), (d.height/2) - (500/2));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getRootPane().setJMenuBar(jmBarraMenus);
