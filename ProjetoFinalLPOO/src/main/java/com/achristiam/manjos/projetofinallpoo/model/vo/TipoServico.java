@@ -6,32 +6,44 @@
 package com.achristiam.manjos.projetofinallpoo.model.vo;
 
 import java.util.ArrayList;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author allainnc
  */
+@Entity
+@Table(name = "tb_TipoServico")
 public class TipoServico {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tser_codigo")
     private int id;
+    
+    @Column(name = "tser_descricao")
     private String descricao;
+    
+    @Column(name = "tser_tempo")
     private double tempoMin;
+    
+    @Column(name = "tser_custoMaoObra")
     private double custoMaoObra;
-    private ArrayList<Equipamento> equipamentos;
-    private ArrayList<Produto> produtos;
-    private ArrayList<Integer> quantidadeProdGasto;
+
 
     public TipoServico() {
     }
     
-    public TipoServico(int id, String descricao, double tempoMin, double custoMaoObra, ArrayList<Equipamento> equipamentos, ArrayList<Produto> produtos, ArrayList<Integer> quantidadeProdGasto) {
+    public TipoServico(int id, String descricao, double tempoMin, double custoMaoObra) {
         this.id = id;
         this.descricao = descricao;
         this.tempoMin = tempoMin;
         this.custoMaoObra = custoMaoObra;
-        this.equipamentos = equipamentos;
-        this.produtos = produtos;
-        this.quantidadeProdGasto = quantidadeProdGasto;
     }
 
     
@@ -66,30 +78,5 @@ public class TipoServico {
     public void setCustoMaoObra(double custoMaoObra) {
         this.custoMaoObra = custoMaoObra;
     }
-
-    public ArrayList<Equipamento> getEquipamentos() {
-        return equipamentos;
-    }
-
-    public void setEquipamentos(ArrayList<Equipamento> equipamentos) {
-        this.equipamentos = equipamentos;
-    }
-
-    public ArrayList<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(ArrayList<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
-    public ArrayList<Integer> getQuantidadeProdGasto() {
-        return quantidadeProdGasto;
-    }
-
-    public void setQuantidadeProdGasto(ArrayList<Integer> quantidadeProdGasto) {
-        this.quantidadeProdGasto = quantidadeProdGasto;
-    }
-    
     
 }
