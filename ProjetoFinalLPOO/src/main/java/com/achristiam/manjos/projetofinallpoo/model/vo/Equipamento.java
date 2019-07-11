@@ -24,7 +24,7 @@ public class Equipamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "equ_codigo")
-    private int id;
+    private Long id;
     
     @Column(name = "equ_descricao")
     private String descricao;
@@ -54,11 +54,11 @@ public class Equipamento {
     
     
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
