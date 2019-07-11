@@ -34,16 +34,20 @@ public class TipoServico {
     
     @Column(name = "tser_custoMaoObra")
     private double custoMaoObra;
+    
+    @Column(name = "tser_tempoTotal")
+    private double tempoTotal;
 
 
     public TipoServico() {
     }
     
-    public TipoServico(int id, String descricao, double tempoMin, double custoMaoObra) {
+    public TipoServico(int id, String descricao, double tempoMin, double custoMaoObra, double tempoTotal) {
         this.id = id;
         this.descricao = descricao;
         this.tempoMin = tempoMin;
         this.custoMaoObra = custoMaoObra;
+        this.tempoTotal = this.tempoTotal;
     }
 
     
@@ -78,5 +82,20 @@ public class TipoServico {
     public void setCustoMaoObra(double custoMaoObra) {
         this.custoMaoObra = custoMaoObra;
     }
+
+    public double getTempoTotal() {
+        return tempoTotal;
+    }
+
+    public void setTempoTotal(double tempoTotal) {
+        this.tempoTotal = tempoTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "TipoServico{" + "id=" + id + ", descricao=" + descricao + ", tempoMin=" + tempoMin + ", custoMaoObra=" + custoMaoObra + ", tempoTotal=" + tempoTotal + '}';
+    }
+    
+    
     
 }
