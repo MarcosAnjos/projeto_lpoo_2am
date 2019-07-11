@@ -62,7 +62,7 @@ public class CadastroTipoServico extends CadastroPadrao {
     private JPanel jpCampos;
     private JLabel jlCodigo, jlDescricao, jlTempo, jlEquipamento, jlProduto;
     private JLabel jlCustoMaoObra, jlTempoEquipamento, jlQuantidadeProd;
-    private JLabel jlTempoTotal, jlValorTotal, jtfTempoTotal, jtfValorTotal;
+    private JLabel jlTempoTotalEqui, jlValorTotalProd, jtfTempoTotalEqui, jtfValorTotalProd;
     private JTextField jtfCodigo, jtfDescricao, jtfTempo, jtfCustoMaoObra;
     private JTextField jtfTempoEquipamento, jtfQuantidadeProd;
     private JComboBox jtfEquipamento, jtfProduto;
@@ -123,15 +123,15 @@ public class CadastroTipoServico extends CadastroPadrao {
         btAdicionarProduto = new JButton("Adicionar");
         btRemoverProduto = new JButton("Remover");
         
-        jlTempoTotal = new JLabel("Tempo Total");
-        jtfTempoTotal = new JLabel("0.00");
-        jlValorTotal = new JLabel("Valor Total");
-        jtfValorTotal = new JLabel("R$ 0.00");
+        jlTempoTotalEqui = new JLabel("Tempo Total Equipamento");
+        jtfTempoTotalEqui = new JLabel("0.00");
+        jlValorTotalProd = new JLabel("Valor Total Produto");
+        jtfValorTotalProd = new JLabel("R$ 0.00");
         
-        jlTempoTotal.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
-        jtfTempoTotal.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
-        jlValorTotal.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
-        jtfValorTotal.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+        jlTempoTotalEqui.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+        jtfTempoTotalEqui.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+        jlValorTotalProd.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+        jtfValorTotalProd.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
                 
         jtEquipamentos = new JTable(null,getCabecalhoEquipamento());
         modelEqui = (DefaultTableModel)jtEquipamentos.getModel();
@@ -190,8 +190,8 @@ public class CadastroTipoServico extends CadastroPadrao {
         
         jpCampos.add(jspEquipamentos);
         
-        jpCampos.add(jlTempoTotal);
-        jpCampos.add(jtfTempoTotal);
+        jpCampos.add(jlTempoTotalEqui);
+        jpCampos.add(jtfTempoTotalEqui);
         
         jpCampos.add(jlProduto);
         jpCampos.add(jtfProduto);
@@ -202,14 +202,14 @@ public class CadastroTipoServico extends CadastroPadrao {
         
         jpCampos.add(jspProdutos);
         
-        jpCampos.add(jlValorTotal);
-        jpCampos.add(jtfValorTotal);
+        jpCampos.add(jlValorTotalProd);
+        jpCampos.add(jtfValorTotalProd);
 
         // posicao dos componentes
         jlCodigo.setBounds(15, 30, 105, 25);  // MD, MS, Lrg ,Alt
         jtfCodigo.setBounds(140, 30, 100, 25);
         jlDescricao.setBounds(15, 60, 105, 25);
-        jtfDescricao.setBounds(140, 60, 100, 25);
+        jtfDescricao.setBounds(140, 60, 250, 25);
         jlTempo.setBounds(15, 90, 105, 25);
         jtfTempo.setBounds(140, 90, 100, 25);
         jlCustoMaoObra.setBounds(15, 120, 105, 25);
@@ -220,22 +220,24 @@ public class CadastroTipoServico extends CadastroPadrao {
         jtfTempoEquipamento.setBounds(140, 180, 100, 25);
         
         btAdicionarEquipamento.setBounds(500, 180, 120, 25);
-        btRemoverEquipamento.setBounds(500, 350, 120, 25);
-        jlTempoTotal.setBounds(15, 350, 140, 25);
-        jtfTempoTotal.setBounds(160, 350, 120, 25);
         
-        jspEquipamentos.setBounds(15, 210, 605, 130);
+        jspEquipamentos.setBounds(15, 210, 605, 115);
         
-        jlProduto.setBounds(15, 380, 105, 25);
-        jtfProduto.setBounds(140, 380, 200, 25);
-        jlQuantidadeProd.setBounds(15, 410, 105, 25);
-        jtfQuantidadeProd.setBounds(140, 410, 100, 25);
-        btAdicionarProduto.setBounds(500, 410, 120, 25);
+        btRemoverEquipamento.setBounds(500, 330, 120, 25);
+        jlTempoTotalEqui.setBounds(15, 330, 210, 25);
+        jtfTempoTotalEqui.setBounds(240, 330, 120, 25);
         
-        jspProdutos.setBounds(15, 440, 605, 130);
-        btRemoverProduto.setBounds(500, 580, 120, 25);
-        jlValorTotal.setBounds(15, 580, 120, 25);
-        jtfValorTotal.setBounds(140, 580, 120, 25);
+        jlProduto.setBounds(15, 360, 105, 25);
+        jtfProduto.setBounds(140, 360, 200, 25);
+        jlQuantidadeProd.setBounds(15, 390, 105, 25);
+        jtfQuantidadeProd.setBounds(140, 390, 100, 25);
+        btAdicionarProduto.setBounds(500, 390, 120, 25);
+        
+        jspProdutos.setBounds(15, 420, 605, 115);
+        
+        btRemoverProduto.setBounds(500, 540, 120, 25);
+        jlValorTotalProd.setBounds(15, 540, 210, 25);
+        jtfValorTotalProd.setBounds(240, 540, 120, 25);
         
         this.add(jpBotoes, BorderLayout.SOUTH);
         jpBotoes.setVisible(true);
@@ -273,7 +275,7 @@ public class CadastroTipoServico extends CadastroPadrao {
                             modelEqui.addRow(linha);                      
                             jtEquipamentos.validate();
                             
-                            jtfTempoTotal.setText(String.valueOf(tempoTotal));
+                            jtfTempoTotalEqui.setText(String.valueOf(tempoTotal));
                             jtfTempoEquipamento.setText("");
                         } else {
                             jtfTempoEquipamento.setText("");
@@ -296,7 +298,7 @@ public class CadastroTipoServico extends CadastroPadrao {
                     listEquipamentos.remove(jtEquipamentos.getSelectedRow());
                     tempos.remove(jtEquipamentos.getSelectedRow());    
                     modelEqui.removeRow(jtEquipamentos.getSelectedRow());
-                    jtfTempoTotal.setText(String.valueOf(tempoTotal));
+                    jtfTempoTotalEqui.setText(String.valueOf(tempoTotal));
                     btRemoverEquipamento.setEnabled(false);
                     jtfTempo.setFocusable(true);
                 }
@@ -335,7 +337,7 @@ public class CadastroTipoServico extends CadastroPadrao {
                             modelProd.addRow(linha);                      
                             jtProdutos.validate();
                             
-                            jtfValorTotal.setText(money.format(valorTotal));
+                            jtfValorTotalProd.setText(money.format(valorTotal));
                             jtfQuantidadeProd.setText("");
                         } else {
                             jtfQuantidadeProd.setText("");
@@ -354,12 +356,12 @@ public class CadastroTipoServico extends CadastroPadrao {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
                     //System.out.println(jtDados.getSelectedRow());
-                    valorTotal -= (listProdutos.get(jtProdutos.getSelectedRow()).getValorVenda() 
+                    valorTotal -= (listProdutos.get(jtProdutos.getSelectedRow()).getValorServico()
                             * quantidades.get(jtProdutos.getSelectedRow()));
                     listProdutos.remove(jtProdutos.getSelectedRow());
                     quantidades.remove(jtProdutos.getSelectedRow());    
                     modelProd.removeRow(jtProdutos.getSelectedRow());
-                    jtfValorTotal.setText(money.format(valorTotal));
+                    jtfValorTotalProd.setText(money.format(valorTotal));
                     btRemoverProduto.setEnabled(false);
                     jtfQuantidadeProd.setFocusable(true);
                    
@@ -381,6 +383,7 @@ public class CadastroTipoServico extends CadastroPadrao {
                     tserv = new TipoServico();
                     tserv = getObjetoFromCampos();
                     tserv.setTempoTotal(tempoTotal + tserv.getTempoMin());
+                    tserv.setValorTotal(valorTotal + tserv.getCustoMaoObra());
                     tipoServicoController.gravar(tserv);
                     
                     for(int i = 0; i < tempos.size();i++){
@@ -477,6 +480,10 @@ public class CadastroTipoServico extends CadastroPadrao {
         this.jtfEquipamento.setSelectedIndex(0);
         this.jtfProduto.setSelectedIndex(0);
         this.jtfTempo.setText("");
+        this.jtfTempoTotalEqui.setText("0.00");
+        this.jtfValorTotalProd.setText("R$ 0.00");
+        while(modelEqui.getRowCount() > 0) modelEqui.removeRow(0);
+        while(modelProd.getRowCount() > 0) modelProd.removeRow(0);
     }
 
     public void preencheCampos(Object obj) {

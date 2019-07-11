@@ -20,6 +20,8 @@ public class ConsultaTipoServico extends ConsultaPadrao {
         cab.add("Descricao");
         cab.add("Tempo");
         cab.add("Custo Mão de Obra");
+        cab.add("Tempo Total");
+        cab.add("Custo Total");
         return cab;
     }
 
@@ -34,6 +36,8 @@ public class ConsultaTipoServico extends ConsultaPadrao {
             linha.add(ts.getDescricao());
             linha.add(ts.getTempoMin());
             linha.add(ts.getCustoMaoObra());
+            linha.add(ts.getTempoTotal());
+            linha.add(ts.getValorTotal());
             linhas.add(linha);
         }
 
