@@ -11,6 +11,7 @@ import com.achristiam.manjos.projetofinallpoo.model.vo.Produto;
 import com.achristiam.manjos.projetofinallpoo.model.vo.TipoServico;
 import com.achristiam.manjos.projetofinallpoo.model.vo.TipoServicoEquipamento;
 import com.achristiam.manjos.projetofinallpoo.model.vo.TipoServicoProduto;
+import com.achristiam.manjos.projetofinallpoo.model.vo.VendaProduto;
 import com.achristiam.manjos.projetofinallpoo.view.model.CadastroPadrao;
 
 import java.awt.BorderLayout;
@@ -84,6 +85,9 @@ public class CadastroTipoServico extends CadastroPadrao {
     
     private TipoServicoProduto tsp;
     private TipoServicoProdutoController tspc = new TipoServicoProdutoController();
+    
+    private List<TipoServicoEquipamento> tipoServicoEquipamentos;
+    private List<TipoServicoProduto> tipoServicoProdutos;
     
     public CadastroTipoServico() {
         super("Cadastro de TipoServico", true, true, true, true);
@@ -293,7 +297,6 @@ public class CadastroTipoServico extends CadastroPadrao {
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
-                    //System.out.println(jtDados.getSelectedRow());
                     tempoTotal -= tempos.get(jtEquipamentos.getSelectedRow());
                     listEquipamentos.remove(jtEquipamentos.getSelectedRow());
                     tempos.remove(jtEquipamentos.getSelectedRow());    
@@ -309,7 +312,6 @@ public class CadastroTipoServico extends CadastroPadrao {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 btRemoverEquipamento.setEnabled(true);
-                //System.out.println(jtDados.rowAtPoint(evt.getPoint()));
             }
         });
         
@@ -355,7 +357,6 @@ public class CadastroTipoServico extends CadastroPadrao {
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
-                    //System.out.println(jtDados.getSelectedRow());
                     valorTotal -= (listProdutos.get(jtProdutos.getSelectedRow()).getValorServico()
                             * quantidades.get(jtProdutos.getSelectedRow()));
                     listProdutos.remove(jtProdutos.getSelectedRow());
@@ -373,7 +374,6 @@ public class CadastroTipoServico extends CadastroPadrao {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 btRemoverProduto.setEnabled(true);
-                //System.out.println(jtDados.rowAtPoint(evt.getPoint()));
             }
         });
 
@@ -386,7 +386,7 @@ public class CadastroTipoServico extends CadastroPadrao {
                     tserv.setValorTotal(valorTotal + tserv.getCustoMaoObra());
                     tipoServicoController.gravar(tserv);
                     
-                    for(int i = 0; i < tempos.size();i++){
+                    for(int i = 0; i < listEquipamentos.size();i++){
                         tse = new TipoServicoEquipamento();
                         
                         tse.setEquipamento(listEquipamentos.get(i));
@@ -396,7 +396,7 @@ public class CadastroTipoServico extends CadastroPadrao {
                         tsec.gravar(tse);
                     }
                     
-                    for(int i = 0; i < quantidades.size();i++){
+                    for(int i = 0; i < listProdutos.size();i++){
                         tsp = new TipoServicoProduto();
                         
                         tsp.setProduto(listProdutos.get(i));
@@ -432,6 +432,13 @@ public class CadastroTipoServico extends CadastroPadrao {
         jbExcluir.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
+                    for (TipoServicoEquipamento tse : tipoServicoEquipamentos) {
+                        tsec.remover(tse);
+                    }
+
+                    for (TipoServicoProduto tsp : tipoServicoProdutos) {
+                        tspc.remover(tsp);
+                    }
                     tipoServicoController.remover(tserv);
                     limpaCampos();
                     jbAlterar.setEnabled(false);
@@ -484,6 +491,13 @@ public class CadastroTipoServico extends CadastroPadrao {
         this.jtfValorTotalProd.setText("R$ 0.00");
         while(modelEqui.getRowCount() > 0) modelEqui.removeRow(0);
         while(modelProd.getRowCount() > 0) modelProd.removeRow(0);
+        
+        tempoTotal = 0.0;
+        valorTotal = 0.0;
+        listProdutos.clear();
+        quantidades.clear();
+        listEquipamentos.clear();
+        tempos.clear();
     }
 
     public void preencheCampos(Object obj) {
@@ -494,6 +508,35 @@ public class CadastroTipoServico extends CadastroPadrao {
         this.jtfDescricao.setText(tserv.getDescricao());
         this.jtfCustoMaoObra.setText(String.valueOf(tserv.getCustoMaoObra()));
         this.jtfTempo.setText(String.valueOf(tserv.getTempoMin()));
+        
+        tipoServicoEquipamentos = tsec.buscarEquipamentosTipoServico(tserv.getId().intValue());
+        
+        for (TipoServicoEquipamento tse : tipoServicoEquipamentos) {
+            Vector linha = new Vector();
+            linha.add(tse.getEquipamento().getId());
+            linha.add(tse.getEquipamento().getDescricao());
+            linha.add(tse.getTempoGasto());
+            linha.add(tse.getEquipamento().getValorServico());
+            listEquipamentos.add(tse.getEquipamento());
+            tempos.add(tse.getTempoGasto());
+            modelEqui.addRow(linha);
+            jtEquipamentos.validate();
+        }
+        
+        tipoServicoProdutos = tspc.buscarProdutosTipoServico(tserv.getId().intValue());
+        
+        for (TipoServicoProduto tsp : tipoServicoProdutos) {
+            Vector linha = new Vector();
+            linha.add(tsp.getProduto().getId());
+            linha.add(tsp.getProduto().getDescricao());
+            linha.add(tsp.getQuantidade());
+            linha.add(tsp.getProduto().getValorServico());
+            linha.add(tsp.getProduto().getValorServico() * tsp.getQuantidade());
+            listProdutos.add(tsp.getProduto());
+            quantidades.add(tsp.getQuantidade());
+            modelProd.addRow(linha);
+            jtProdutos.validate();
+        }
     }
     
     public Vector getCabecalhoEquipamento() {

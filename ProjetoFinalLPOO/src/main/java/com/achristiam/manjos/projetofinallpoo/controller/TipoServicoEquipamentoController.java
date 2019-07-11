@@ -40,8 +40,8 @@ public class TipoServicoEquipamentoController {
         return tipoServicoEquipamentos;
     }
     
-    public List buscarProdutosVenda(int codEquipamento){
-        List<TipoServicoEquipamento> tipoServicoEquipamentos = (List<TipoServicoEquipamento>) genericDao.listMany("tserequ_codEquipamento", codEquipamento, TipoServicoEquipamento.class);
+    public List buscarEquipamentosTipoServico(int codEquipamento){
+        List<TipoServicoEquipamento> tipoServicoEquipamentos = (List<TipoServicoEquipamento>) genericDao.listMany("tserequ_codTipoServico", codEquipamento, TipoServicoEquipamento.class);
         return tipoServicoEquipamentos;
     }
     
