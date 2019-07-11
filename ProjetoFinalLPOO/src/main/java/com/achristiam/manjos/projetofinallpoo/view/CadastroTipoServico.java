@@ -3,10 +3,14 @@ package com.achristiam.manjos.projetofinallpoo.view;
 import com.achristiam.manjos.projetofinallpoo.controller.EquipamentoController;
 import com.achristiam.manjos.projetofinallpoo.controller.ProdutoController;
 import com.achristiam.manjos.projetofinallpoo.controller.TipoServicoController;
+import com.achristiam.manjos.projetofinallpoo.controller.TipoServicoEquipamentoController;
+import com.achristiam.manjos.projetofinallpoo.controller.TipoServicoProdutoController;
 import com.achristiam.manjos.projetofinallpoo.model.bo.JTextFieldSomenteNumeros;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Equipamento;
 import com.achristiam.manjos.projetofinallpoo.model.vo.Produto;
 import com.achristiam.manjos.projetofinallpoo.model.vo.TipoServico;
+import com.achristiam.manjos.projetofinallpoo.model.vo.TipoServicoEquipamento;
+import com.achristiam.manjos.projetofinallpoo.model.vo.TipoServicoProduto;
 import com.achristiam.manjos.projetofinallpoo.view.model.CadastroPadrao;
 
 import java.awt.BorderLayout;
@@ -74,6 +78,12 @@ public class CadastroTipoServico extends CadastroPadrao {
     
     private Double tempoTotal = 0.0;
     private Double valorTotal = 0.0;
+    
+    private TipoServicoEquipamento tse;
+    private TipoServicoEquipamentoController tsec = new TipoServicoEquipamentoController();
+    
+    private TipoServicoProduto tsp;
+    private TipoServicoProdutoController tspc = new TipoServicoProdutoController();
     
     public CadastroTipoServico() {
         super("Cadastro de TipoServico", true, true, true, true);
@@ -369,7 +379,30 @@ public class CadastroTipoServico extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     tserv = new TipoServico();
-                    tipoServicoController.gravar(getObjetoFromCampos());
+                    tserv = getObjetoFromCampos();
+                    tserv.setTempoTotal(tempoTotal + tserv.getTempoMin());
+                    tipoServicoController.gravar(tserv);
+                    
+                    for(int i = 0; i < tempos.size();i++){
+                        tse = new TipoServicoEquipamento();
+                        
+                        tse.setEquipamento(listEquipamentos.get(i));
+                        tse.setTempoGasto(tempos.get(i));
+                        tse.setTipoServico(tserv);
+                        
+                        tsec.gravar(tse);
+                    }
+                    
+                    for(int i = 0; i < quantidades.size();i++){
+                        tsp = new TipoServicoProduto();
+                        
+                        tsp.setProduto(listProdutos.get(i));
+                        tsp.setQuantidade(quantidades.get(i));
+                        tsp.setTipoServico(tserv);
+                        
+                        tspc.gravar(tsp);
+                    }
+                    
                     JOptionPane.showMessageDialog(null, "O TipoServico foi cadastrado com sucesso!");
                     limpaCampos();
                 }
@@ -432,7 +465,8 @@ public class CadastroTipoServico extends CadastroPadrao {
 
     public TipoServico getObjetoFromCampos() {
         tserv.setDescricao(jtfDescricao.getText());
-
+        tserv.setCustoMaoObra(Double.valueOf(jtfCustoMaoObra.getText()));
+        tserv.setTempoMin(Double.valueOf(jtfTempo.getText()));
         return tserv;
     }
 	
