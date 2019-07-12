@@ -60,13 +60,13 @@ public class CadastroFuncionario extends CadastroPadrao {
 
         // posicao dos componentes
         jlCodigo.setBounds(15, 30, 65, 25);  // MD, MS, Lrg ,Alt
-        jtfCodigo.setBounds(100, 30, 100, 25);
+        jtfCodigo.setBounds(75, 30, 100, 25);
         jlNome.setBounds(15, 60, 65, 25);
-        jtfNome.setBounds(100, 60, 100, 25);
+        jtfNome.setBounds(75, 60, 250, 25);
         jlLogin.setBounds(15, 90, 65, 25);
-        jtfLogin.setBounds(100, 90, 100, 25);
+        jtfLogin.setBounds(75, 90, 200, 25);
         jlSenha.setBounds(15, 120, 65, 25);
-        jtfSenha.setBounds(100, 120, 100, 25);
+        jtfSenha.setBounds(75, 120, 200, 25);
 
         this.add(jpBotoes, BorderLayout.SOUTH);
         jpBotoes.setVisible(true);

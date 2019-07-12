@@ -5,36 +5,60 @@
  */
 package com.achristiam.manjos.projetofinallpoo.model.vo;
 
+import javax.annotation.Generated;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author allainnc
  */
+@Entity
+@Table(name = "tb_Equipamento")
 public class Equipamento {
     
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "equ_codigo")
+    private Long id;
+    
+    @Column(name = "equ_descricao")
     private String descricao;
+    
+    @Column(name = "equ_funcao")
     private String funcao;
+    
+    @Column(name = "equ_observacao")
     private String observacao;
+    
+    @Column(name = "equ_valorServico")
+    private double valorServico;
+    
+    @Column(name = "equ_status")
     private boolean status;
 
     public Equipamento() {
     }
 
-    public Equipamento(int id, String descricao, String funcao, String observacao, boolean status) {
-        this.id = id;
+    public Equipamento(String descricao, String funcao, String observacao, double valorServico, boolean status) {
         this.descricao = descricao;
         this.funcao = funcao;
         this.observacao = observacao;
+        this.valorServico = valorServico;
         this.status = status;
     }
     
     
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,6 +85,16 @@ public class Equipamento {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
+    public double getValorServico() {
+        return valorServico;
+    }
+
+    public void setValorServico(double valorServico) {
+        this.valorServico = valorServico;
+    }
+    
+    
 
     public boolean isStatus() {
         return status;

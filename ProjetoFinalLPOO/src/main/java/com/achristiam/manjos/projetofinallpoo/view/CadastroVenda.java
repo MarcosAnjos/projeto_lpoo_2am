@@ -104,6 +104,7 @@ public class CadastroVenda extends CadastroPadrao {
         this.opcoes.add("Cartão de Credito");
         this.opcoes.add("Cartão de Debito");
         this.opcoes.add("Dinheiro");
+        this.opcoes.add("Cheque");
         
         
         jpCampos = new JPanel();
@@ -203,6 +204,7 @@ public class CadastroVenda extends CadastroPadrao {
         }
         
         
+        
         jpCampos.add(jspDados);
         
         jlClienteNome.setVisible(false);
@@ -218,19 +220,19 @@ public class CadastroVenda extends CadastroPadrao {
         jlData.setBounds(15, 70, 65, 25);
         jtfData.setBounds(100, 70, 100, 25);
         jlCliente.setBounds(15, 100, 100, 25);
-        jtfCliente.setBounds(100, 100, 150, 25);
-        jlClienteNome.setBounds(100, 100, 150, 25);
+        jtfCliente.setBounds(100, 100, 250, 25);
+        jlClienteNome.setBounds(100, 100, 250, 25);
         jlProduto.setBounds(15, 130, 100, 25);
-        jtfProduto.setBounds(100, 130, 150, 25);
+        jtfProduto.setBounds(100, 130, 250, 25);
         jlQuantidade.setBounds(15, 160, 100, 25);
         jtfQuantidade.setBounds(100, 160, 100, 25);
         btAdicionar.setBounds(210, 160, 120, 25);
         
-        jspDados.setBounds(15, 190, 605, 200);
+        jspDados.setBounds(15, 190, 605, 380);
         
-        jlTotal.setBounds(15, 400, 100, 25);
-        jtfTotal.setBounds(90, 400, 250, 25);
-        btRemover.setBounds(500, 400, 120, 25);
+        jlTotal.setBounds(15, 580, 100, 25);
+        jtfTotal.setBounds(90, 580, 250, 25);
+        btRemover.setBounds(500, 580, 120, 25);
         
         jlFuncionario.setBounds(15, 8, 200, 25);
 
@@ -440,6 +442,8 @@ public class CadastroVenda extends CadastroPadrao {
         this.btRemover.setVisible(true);
         this.jtfData.setEditable(true);
         
+        this.jtDados.setEnabled(true);
+        
         this.jtfFormaPagamentoRet.setVisible(false);
         this.jtfFormaPagamento.setVisible(true);
     }
@@ -463,8 +467,11 @@ public class CadastroVenda extends CadastroPadrao {
         this.btAdicionar.setVisible(false);
         this.btRemover.setVisible(false);
         
+        this.jtDados.setEnabled(false);
+        
         this.jtfFormaPagamentoRet.setVisible(true);
         this.jtfFormaPagamento.setVisible(false);
+        
         
         
         this.jtfTotal.setText(String.valueOf(z.format(ven.getValorTotal())));

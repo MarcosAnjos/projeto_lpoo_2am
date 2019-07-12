@@ -29,7 +29,7 @@ public class Sistema extends JFrame {
     
     
     public Sistema() {
-        super("Sistemãooo");
+        super("Gráfica do Irmão do Jorel");
         
         //InicializarBanco.inicializar();
         
@@ -40,13 +40,13 @@ public class Sistema extends JFrame {
             return;
         }
         
-        System.out.println(usuario.getLogin());
+//        System.out.println(usuario.getLogin());
 
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
         
-        this.setSize(650, 550);
-        this.setLocation((d.width/2) - (670/2), (d.height/2) - (500/2));
+        this.setSize(650, 730);
+        this.setLocation((d.width/2) - (670/2), 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getRootPane().setJMenuBar(jmBarraMenus);
 
@@ -66,18 +66,33 @@ public class Sistema extends JFrame {
         JMenuItem miFuncionario = new JMenuItem();
         JMenuItem miProduto = new JMenuItem();
         JMenuItem miVenda = new JMenuItem();
+        JMenuItem miEquipamento = new JMenuItem();
+        JMenuItem miTipoServico = new JMenuItem();
+        JMenuItem miServico = new JMenuItem();
+        
+        JMenuItem miLogout = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
         miFuncionario.setText("Funcionario");
         miProduto.setText("Produto");
         miVenda.setText("Venda");
+        miEquipamento.setText("Equipamento");
+        miTipoServico.setText("Tipo de Serviço");
+        miServico.setText("Serviço");
+        
+        miLogout.setText("Logout");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
         mOpcoes.add(miFuncionario);
         mOpcoes.add(miProduto);
         mOpcoes.add(miVenda);
+        mOpcoes.add(miEquipamento);
+        mOpcoes.add(miTipoServico);
+        mOpcoes.add(miServico);
+        
+        jmBarraMenus.add(miLogout);
 
         telaInterna.setLayout(new BorderLayout());
 
@@ -125,14 +140,56 @@ public class Sistema extends JFrame {
                 }
             }
         );
+        
+        miEquipamento.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroEquipamento cadEquipamento = new CadastroEquipamento();
+                    telaInterna.add(cadEquipamento);
+                }
+            }
+        );
+        
+        miTipoServico.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroTipoServico cadTipoServico = new CadastroTipoServico();
+                    telaInterna.add(cadTipoServico);
+                }
+            }
+        );
+        
+        miServico.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroServico cadServico = new CadastroServico();
+                    telaInterna.add(cadServico);
+                }
+            }
+        );
+        
+        miLogout.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    System.out.println("Logout");
+                    SingletonUsuario.close();
+                    dispose();
+                    new Login();
+                }
+            }
+        );
 
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SistemaController.iniciarSistema();
-        InicializarBanco.inicializarAdmin();
-        new Sistema();
-        //ConexaoHibernate.close();
-    }
+//    public static void main(String[] args) {
+//        SistemaController.iniciarSistema();
+//        InicializarBanco.inicializarAdmin();
+//        new Sistema();
+//        //ConexaoHibernate.close();
+//    }
 }

@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -82,7 +81,7 @@ public class CadastroProduto extends CadastroPadrao {
         jlCodigo.setBounds(15, 30, 65, 25);  // MD, MS, Lrg ,Alt
         jtfCodigo.setBounds(120, 30, 100, 25);
         jlDescricao.setBounds(15, 60, 75, 25);
-        jtfDescricao.setBounds(120, 60, 100, 25);
+        jtfDescricao.setBounds(120, 60, 250, 25);
         jlValCompra.setBounds(15, 90, 95, 25);
         jtfValCompra.setBounds(120, 90, 100, 25);
         jlValVenda.setBounds(15, 120, 95, 25);
@@ -112,6 +111,9 @@ public class CadastroProduto extends CadastroPadrao {
                         produtoController.gravar(prod);
                         JOptionPane.showMessageDialog(null, "O Produto foi cadastrado com sucesso!");
                         limpaCampos();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Erro no cadastro do Produto!");
                     }
                 }
             }
@@ -179,8 +181,6 @@ public class CadastroProduto extends CadastroPadrao {
         
         if(gravar) prod = new Produto();
         
-        
-        
         prod.setDescricao(jtfDescricao.getText());
         try {
             val = format.format(Double.valueOf(jtfValCompra.getText()));
@@ -194,7 +194,7 @@ public class CadastroProduto extends CadastroPadrao {
             val = format.format(Double.valueOf(jtfValVenda.getText()));
             prod.setValorVenda(Double.valueOf(jtfValVenda.getText()));
         } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Valor invalido de Venda");
+            JOptionPane.showMessageDialog(null, "Valor invalido no campo Venda");
             gravar = false;
             return null;
         }
@@ -203,7 +203,7 @@ public class CadastroProduto extends CadastroPadrao {
             val = format.format(Double.valueOf(jtfValServico.getText()));
             prod.setValorServico(Double.valueOf(jtfValServico.getText()));
         } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Valor invalido de Serviço");
+            JOptionPane.showMessageDialog(null, "Valor invalido no campo Serviço");
             gravar = false;
             return null;
         }

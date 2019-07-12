@@ -5,55 +5,78 @@
  */
 package com.achristiam.manjos.projetofinallpoo.model.vo;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author allainnc
  */
-//@Entity
-//@Table(name = "tb_servico")
+@Entity
+@Table(name = "tb_Servico")
 public class Servico {
     
-//    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "ser_codigo")
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ser_codigo")
     private Long id;
     
-//    @Column(name = "ser_descricao")
+    @Column(name = "ser_descricao")
     private String descricao;
     
-//    @Column(name = "ser_cliente")
+    @Column(name = "ven_dataRequisicao")
+    @Temporal(TemporalType.DATE)
+    private Date dataRequisicao;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ven_codCliente")
     private Cliente cliente;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ven_codFuncionario")
     private Funcionario funcionario;
-    
-//    @ElementCollection
-//    @CollectionTable(name="tb_tiposerv")
-    private ArrayList<TipoServico> tiposServico;
-    private ArrayList<Integer> quantidades;
-    
-    
-    private double valorTotal;
-    private double tempoTotal;
 
+    @Column(name = "ser_valorTotal")
+    private double valorTotal;
     
+    @Column(name = "ser_tempoTotal")
+    private double tempoTotal;
+    
+    @Column(name = "ser_observacao")
+    private String observacao;
+    
+    @Column(name = "ven_dataEntrega")
+    @Temporal(TemporalType.DATE)
+    private Date dataEntrega;
+    
+    @Column(name = "ser_formaPagamento")
+    private String formaPagamento;
     
     public Servico() {
     }
 
-    public Servico(String descricao, Cliente cliente, Funcionario funcionario, ArrayList<TipoServico> tiposServico, ArrayList<Integer> quantidades, double valorTotal, double tempoTotal) {
+    public Servico(Long id, String descricao, Date dataRequisicao, Cliente cliente, Funcionario funcionario, double valorTotal, double tempoTotal, String observacao, Date dataEntrega) {
+        this.id = id;
         this.descricao = descricao;
+        this.dataRequisicao = dataRequisicao;
         this.cliente = cliente;
         this.funcionario = funcionario;
-        this.tiposServico = tiposServico;
-        this.quantidades = quantidades;
         this.valorTotal = valorTotal;
         this.tempoTotal = tempoTotal;
+        this.observacao = observacao;
+        this.dataEntrega = dataEntrega;
     }
-    
-    
-
+  
     public Long getId() {
         return id;
     }
@@ -84,15 +107,7 @@ public class Servico {
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
-    }
-
-    public ArrayList<TipoServico> getTiposServico() {
-        return tiposServico;
-    }
-
-    public void setTiposServico(ArrayList<TipoServico> tiposServico) {
-        this.tiposServico = tiposServico;
-    }
+    } 
 
     public double getValorTotal() {
         return valorTotal;
@@ -109,21 +124,46 @@ public class Servico {
     public void setTempoTotal(double tempoTotal) {
         this.tempoTotal = tempoTotal;
     }
-    
-    public void Imprimir() {
-        System.out.println("ID: " + this.id);
-        System.out.println("Descricao: " + this.descricao);
-        System.out.println("Cliente: " + this.cliente.getNome());
-        System.out.println("Funcionario: " + this.funcionario.getNome());
-        for(int i=0;i<tiposServico.size();i++){
-            System.out.print("Tipo de Serviço: " + tiposServico.get(i).getDescricao());
-            System.out.println("\tQuantidade: " + quantidades.get(i).intValue());
-        }
-        DecimalFormat df = new DecimalFormat("#.00");
-        System.out.println("Valor Total: " +df.format(this.valorTotal));
-        System.out.println("Tempo Total: " + df.format(this.tempoTotal));
+
+    public Date getDataRequisicao() {
+        return dataRequisicao;
+    }
+
+    public void setDataRequisicao(Date dataRequisicao) {
+        this.dataRequisicao = dataRequisicao;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public Date getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(Date dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
     
     
+
+    @Override
+    public String toString() {
+        return "Servico{" + "id=" + id + ", descricao=" + descricao + ", cliente=" 
+                + cliente + ", funcionario=" + funcionario + ", valorTotal=" 
+                + valorTotal + ", tempoTotal=" + tempoTotal + '}';
+    }  
     
 }

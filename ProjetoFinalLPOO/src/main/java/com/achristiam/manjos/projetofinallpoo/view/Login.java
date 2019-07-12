@@ -115,8 +115,8 @@ public class Login extends JFrame {
     
     public static void main(String[] args) {
         SistemaController.iniciarSistema();
-        InicializarBanco.inicializarAdmin();
-        InicializarBanco.inicializar();
+        //InicializarBanco.inicializarAdmin();
+        //InicializarBanco.inicializar();
         new Login();
     }
 }

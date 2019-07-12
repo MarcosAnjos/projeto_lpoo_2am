@@ -6,40 +6,60 @@
 package com.achristiam.manjos.projetofinallpoo.model.vo;
 
 import java.util.ArrayList;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author allainnc
  */
+@Entity
+@Table(name = "tb_TipoServico")
 public class TipoServico {
     
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tser_codigo")
+    private Long id;
+    
+    @Column(name = "tser_descricao")
     private String descricao;
+    
+    @Column(name = "tser_tempo")
     private double tempoMin;
+    
+    @Column(name = "tser_custoMaoObra")
     private double custoMaoObra;
-    private ArrayList<Equipamento> equipamentos;
-    private ArrayList<Produto> produtos;
-    private ArrayList<Integer> quantidadeProdGasto;
+    
+    @Column(name = "tser_tempoTotal")
+    private double tempoTotal;
+    
+    @Column(name = "tser_valorTotal")
+    private double valorTotal;
+
 
     public TipoServico() {
     }
     
-    public TipoServico(int id, String descricao, double tempoMin, double custoMaoObra, ArrayList<Equipamento> equipamentos, ArrayList<Produto> produtos, ArrayList<Integer> quantidadeProdGasto) {
+    public TipoServico(Long id, String descricao, double tempoMin, double custoMaoObra, double tempoTotal, double valorTotal) {
         this.id = id;
         this.descricao = descricao;
         this.tempoMin = tempoMin;
         this.custoMaoObra = custoMaoObra;
-        this.equipamentos = equipamentos;
-        this.produtos = produtos;
-        this.quantidadeProdGasto = quantidadeProdGasto;
+        this.tempoTotal = tempoTotal;
+        this.valorTotal = valorTotal;
     }
 
     
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,29 +87,29 @@ public class TipoServico {
         this.custoMaoObra = custoMaoObra;
     }
 
-    public ArrayList<Equipamento> getEquipamentos() {
-        return equipamentos;
+    public double getTempoTotal() {
+        return tempoTotal;
     }
 
-    public void setEquipamentos(ArrayList<Equipamento> equipamentos) {
-        this.equipamentos = equipamentos;
+    public void setTempoTotal(double tempoTotal) {
+        this.tempoTotal = tempoTotal;
     }
 
-    public ArrayList<Produto> getProdutos() {
-        return produtos;
+    public double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
-        this.produtos = produtos;
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    public ArrayList<Integer> getQuantidadeProdGasto() {
-        return quantidadeProdGasto;
+    
+    
+    @Override
+    public String toString() {
+        return "TipoServico{" + "id=" + id + ", descricao=" + descricao + ", tempoMin=" + tempoMin + ", custoMaoObra=" + custoMaoObra + ", tempoTotal=" + tempoTotal + '}';
     }
-
-    public void setQuantidadeProdGasto(ArrayList<Integer> quantidadeProdGasto) {
-        this.quantidadeProdGasto = quantidadeProdGasto;
-    }
+    
     
     
 }
