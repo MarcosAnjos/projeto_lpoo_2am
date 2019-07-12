@@ -3,11 +3,11 @@
 
 ******************************************************************************************************************************************
 ## Principais Requesitos Para Desenvolvimento do Projeto
-- [x] Linguagem Java versao XXX
-- [ ] Hibernet  
+- [x] Linguagem Java versao 11
+- [x] Hibernet  
 - [ ] JPQL 
 - [ ] Criteria  
-- [ ] MVC
+- [x] MVC
 
 ******************************************************************************************************************************************
 ## Consultar Documentação Projeto 2AM
@@ -17,9 +17,9 @@
 ## Situação do Projeto
 - [X] LEVANTAMENTO DE REQUISITOS/OBEJETIVOS GERAL E ESPECIFICOS
 - [X] PLANO GERAL DE DESENVOLVIMENTO
-- [ ] MODELAGEM DOS REQUISITOS
-- [ ] MODELAGEM DO BANCO DE DADOS
-- [ ] IMPLEMENTAÇÃO 
+- [x] MODELAGEM DOS REQUISITOS
+- [x] MODELAGEM DO BANCO DE DADOS
+- [x] IMPLEMENTAÇÃO 
 - [ ] ENTREGA
 
 ******************************************************************************************************************************************
