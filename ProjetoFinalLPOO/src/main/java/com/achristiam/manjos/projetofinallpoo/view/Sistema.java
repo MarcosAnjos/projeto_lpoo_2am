@@ -29,7 +29,7 @@ public class Sistema extends JFrame {
     
     
     public Sistema() {
-        super("Gráfica do Jorel");
+        super("Gráfica do Irmão do Jorel");
         
         //InicializarBanco.inicializar();
         
