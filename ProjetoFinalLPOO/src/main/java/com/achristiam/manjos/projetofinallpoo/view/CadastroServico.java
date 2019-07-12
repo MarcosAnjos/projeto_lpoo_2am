@@ -286,7 +286,9 @@ public class CadastroServico extends CadastroPadrao {
         btRemover.setBounds(500, 540, 120, 25);
         
         jlObservacao.setBounds(15, 580, 100, 25);
-        jtfObservacao.setBounds(110, 580, 510, 25);
+        jtfObservacao.setBounds(110, 580, 300, 25);
+        jlDataEntrega.setBounds(420, 580, 100, 25);
+        jtfDataEntrega.setBounds(530, 580, 90, 25);
         
         jlFuncionario.setBounds(15, 8, 200, 25);
 
@@ -558,7 +560,7 @@ public class CadastroServico extends CadastroPadrao {
         this.jlFuncionario.setText(ser.getFuncionario().getNome());
 
         this.jtfCodigo.setText(String.valueOf(ser.getId()));
-        this.jtfDataEntrega.setText(ParseDate.parseString(ser.getDataEntrega()));
+        this.jtfDataRequisicao.setText(ParseDate.parseString(ser.getDataRequisicao()));
         this.jlClienteNome.setText(ser.getCliente().getNome());
         this.jtfFormaPagamentoRet.setText(ser.getFormaPagamento());
         this.jtfValTotal.setText(String.valueOf(ser.getValorTotal()));

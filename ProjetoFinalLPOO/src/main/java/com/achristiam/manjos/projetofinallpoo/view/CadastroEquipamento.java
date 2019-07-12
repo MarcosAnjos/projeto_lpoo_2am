@@ -93,15 +93,15 @@ public class CadastroEquipamento extends CadastroPadrao {
         jlCodigo.setBounds(15, 30, 85, 25);  // MD, MS, Lrg ,Alt
         jtfCodigo.setBounds(120, 30, 100, 25);
         jlDescricao.setBounds(15, 60, 85, 25);
-        jtfDescricao.setBounds(120, 60, 200, 25);
+        jtfDescricao.setBounds(120, 60, 300, 25);
         jlFuncao.setBounds(15, 90, 85, 25);
-        jtfFuncao.setBounds(120, 90, 200, 25);
+        jtfFuncao.setBounds(120, 90, 300, 25);
         jlObservacao.setBounds(15, 120, 85, 25);
-        jtfObservacao.setBounds(120, 120, 200, 25);
+        jtfObservacao.setBounds(120, 120, 400, 25);
         jlValor.setBounds(15, 150, 85, 25);
-        jtfValor.setBounds(120, 150, 200, 25);
+        jtfValor.setBounds(120, 150, 80, 25);
         jlStatus.setBounds(15, 180, 85, 25);
-        jtfStatus.setBounds(120, 180, 100, 25);
+        jtfStatus.setBounds(120, 180, 150, 25);
 
         this.add(jpBotoes, BorderLayout.SOUTH);
         jpBotoes.setVisible(true);
@@ -117,9 +117,15 @@ public class CadastroEquipamento extends CadastroPadrao {
             new ActionListener() {
                 public void actionPerformed(ActionEvent ev) {
                     equ = new Equipamento();
-                    equipamentoController.gravar(getObjetoFromCampos());
-                    JOptionPane.showMessageDialog(null, "O Equipamento foi cadastrado com sucesso!");
-                    limpaCampos();
+                    equ = getObjetoFromCampos();
+                    if (equ != null){
+                        equipamentoController.gravar(equ);
+                        JOptionPane.showMessageDialog(null, "O Equipamento foi cadastrado com sucesso!");
+                        limpaCampos();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Erro no cadastro do Tipo Serviço!");
+                    }
                 }
             }
         );
@@ -182,7 +188,12 @@ public class CadastroEquipamento extends CadastroPadrao {
         equ.setDescricao(jtfDescricao.getText());
         equ.setFuncao(jtfFuncao.getText());
         equ.setObservacao(jtfObservacao.getText());
-        equ.setValorServico(Double.valueOf(jtfValor.getText()));
+        try {
+            equ.setValorServico(Double.valueOf(jtfValor.getText()));
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Valor invalido no campo Valor Serviço");
+            return null;
+        }
         if(status.get(jtfStatus.getSelectedIndex()).equals("Ativado"))
             equ.setStatus(true);
         else

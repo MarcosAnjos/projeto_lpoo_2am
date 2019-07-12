@@ -46,7 +46,7 @@ public class CadastroCliente extends CadastroPadrao {
         jlCodigo.setBounds(15, 30, 65, 25);  // MD, MS, Lrg ,Alt
         jtfCodigo.setBounds(100, 30, 100, 25);
         jlNome.setBounds(15, 60, 65, 25);
-        jtfNome.setBounds(100, 60, 100, 25);
+        jtfNome.setBounds(100, 60, 250, 25);
 
         this.add(jpBotoes, BorderLayout.SOUTH);
         jpBotoes.setVisible(true);

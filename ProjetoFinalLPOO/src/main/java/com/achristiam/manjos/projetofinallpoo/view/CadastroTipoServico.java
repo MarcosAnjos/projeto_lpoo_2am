@@ -78,6 +78,7 @@ public class CadastroTipoServico extends CadastroPadrao {
     private TipoServico tserv;
     
     private Double tempoTotal = 0.0;
+    private Double valorTotalEqui = 0.0;
     private Double valorTotal = 0.0;
     
     private TipoServicoEquipamento tse;
@@ -122,7 +123,7 @@ public class CadastroTipoServico extends CadastroPadrao {
         btRemoverEquipamento = new JButton("Remover");
         
         jlQuantidadeProd = new JLabel("Quantidade");
-        jtfQuantidadeProd = new JTextFieldSomenteNumeros(true);
+        jtfQuantidadeProd = new JTextFieldSomenteNumeros();
         
         btAdicionarProduto = new JButton("Adicionar");
         btRemoverProduto = new JButton("Remover");
@@ -269,6 +270,8 @@ public class CadastroTipoServico extends CadastroPadrao {
 
                             tempos.add(tempo);
                             listEquipamentos.add(equi);
+                            
+                            valorTotalEqui += equi.getValorServico();
 
                             Vector linha = new Vector();
                             linha.add(equi.getId());
@@ -297,6 +300,7 @@ public class CadastroTipoServico extends CadastroPadrao {
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
+                    valorTotalEqui += listEquipamentos.get(jtEquipamentos.getSelectedRow()).getValorServico();
                     tempoTotal -= tempos.get(jtEquipamentos.getSelectedRow());
                     listEquipamentos.remove(jtEquipamentos.getSelectedRow());
                     tempos.remove(jtEquipamentos.getSelectedRow());    
@@ -382,32 +386,37 @@ public class CadastroTipoServico extends CadastroPadrao {
                 public void actionPerformed(ActionEvent ev) {
                     tserv = new TipoServico();
                     tserv = getObjetoFromCampos();
-                    tserv.setTempoTotal(tempoTotal + tserv.getTempoMin());
-                    tserv.setValorTotal(valorTotal + tserv.getCustoMaoObra());
-                    tipoServicoController.gravar(tserv);
-                    
-                    for(int i = 0; i < listEquipamentos.size();i++){
-                        tse = new TipoServicoEquipamento();
-                        
-                        tse.setEquipamento(listEquipamentos.get(i));
-                        tse.setTempoGasto(tempos.get(i));
-                        tse.setTipoServico(tserv);
-                        
-                        tsec.gravar(tse);
+                    if(tserv != null) {
+                        tserv.setTempoTotal(tempoTotal + tserv.getTempoMin());
+                        tserv.setValorTotal(valorTotal + tserv.getCustoMaoObra() + valorTotalEqui);
+                        tipoServicoController.gravar(tserv);
+
+                        for(int i = 0; i < listEquipamentos.size();i++){
+                            tse = new TipoServicoEquipamento();
+
+                            tse.setEquipamento(listEquipamentos.get(i));
+                            tse.setTempoGasto(tempos.get(i));
+                            tse.setTipoServico(tserv);
+
+                            tsec.gravar(tse);
+                        }
+
+                        for(int i = 0; i < listProdutos.size();i++){
+                            tsp = new TipoServicoProduto();
+
+                            tsp.setProduto(listProdutos.get(i));
+                            tsp.setQuantidade(quantidades.get(i));
+                            tsp.setTipoServico(tserv);
+
+                            tspc.gravar(tsp);
+                        }
+
+                        JOptionPane.showMessageDialog(null, "O Tipo Serviço foi cadastrado com sucesso!");
+                        limpaCampos();
                     }
-                    
-                    for(int i = 0; i < listProdutos.size();i++){
-                        tsp = new TipoServicoProduto();
-                        
-                        tsp.setProduto(listProdutos.get(i));
-                        tsp.setQuantidade(quantidades.get(i));
-                        tsp.setTipoServico(tserv);
-                        
-                        tspc.gravar(tsp);
+                    else {
+                        JOptionPane.showMessageDialog(null, "Erro no cadastro do Tipo Serviço!");
                     }
-                    
-                    JOptionPane.showMessageDialog(null, "O TipoServico foi cadastrado com sucesso!");
-                    limpaCampos();
                 }
             }
         );
@@ -475,8 +484,18 @@ public class CadastroTipoServico extends CadastroPadrao {
 
     public TipoServico getObjetoFromCampos() {
         tserv.setDescricao(jtfDescricao.getText());
-        tserv.setCustoMaoObra(Double.valueOf(jtfCustoMaoObra.getText()));
-        tserv.setTempoMin(Double.valueOf(jtfTempo.getText()));
+        try {
+            tserv.setCustoMaoObra(Double.valueOf(jtfCustoMaoObra.getText()));
+        } catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Valor invalido no campo Custo Mão de Obra");
+            return null;
+        }
+        try {
+            tserv.setTempoMin(Double.valueOf(jtfTempo.getText()));
+        } catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Valor invalido no campo Custo Mão de Obra");
+            return null;
+        }
         return tserv;
     }
 	
@@ -494,6 +513,7 @@ public class CadastroTipoServico extends CadastroPadrao {
         
         tempoTotal = 0.0;
         valorTotal = 0.0;
+        valorTotalEqui = 0.0;
         listProdutos.clear();
         quantidades.clear();
         listEquipamentos.clear();
@@ -509,6 +529,8 @@ public class CadastroTipoServico extends CadastroPadrao {
         this.jtfCustoMaoObra.setText(String.valueOf(tserv.getCustoMaoObra()));
         this.jtfTempo.setText(String.valueOf(tserv.getTempoMin()));
         
+        jtfTempoTotalEqui.setText(String.valueOf(tserv.getTempoTotal() - tserv.getTempoMin()));
+        
         tipoServicoEquipamentos = tsec.buscarEquipamentosTipoServico(tserv.getId().intValue());
         
         for (TipoServicoEquipamento tse : tipoServicoEquipamentos) {
@@ -517,6 +539,7 @@ public class CadastroTipoServico extends CadastroPadrao {
             linha.add(tse.getEquipamento().getDescricao());
             linha.add(tse.getTempoGasto());
             linha.add(tse.getEquipamento().getValorServico());
+            valorTotalEqui += tse.getEquipamento().getValorServico();
             listEquipamentos.add(tse.getEquipamento());
             tempos.add(tse.getTempoGasto());
             modelEqui.addRow(linha);
@@ -532,11 +555,14 @@ public class CadastroTipoServico extends CadastroPadrao {
             linha.add(tsp.getQuantidade());
             linha.add(tsp.getProduto().getValorServico());
             linha.add(tsp.getProduto().getValorServico() * tsp.getQuantidade());
+            valorTotal += tsp.getProduto().getValorServico() * tsp.getQuantidade();
             listProdutos.add(tsp.getProduto());
             quantidades.add(tsp.getQuantidade());
             modelProd.addRow(linha);
             jtProdutos.validate();
         }
+        
+        jtfValorTotalProd.setText(money.format(tserv.getValorTotal() - tserv.getCustoMaoObra() - valorTotalEqui));
     }
     
     public Vector getCabecalhoEquipamento() {

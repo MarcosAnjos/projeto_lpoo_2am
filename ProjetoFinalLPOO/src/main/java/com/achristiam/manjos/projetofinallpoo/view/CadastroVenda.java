@@ -220,10 +220,10 @@ public class CadastroVenda extends CadastroPadrao {
         jlData.setBounds(15, 70, 65, 25);
         jtfData.setBounds(100, 70, 100, 25);
         jlCliente.setBounds(15, 100, 100, 25);
-        jtfCliente.setBounds(100, 100, 150, 25);
-        jlClienteNome.setBounds(100, 100, 150, 25);
+        jtfCliente.setBounds(100, 100, 250, 25);
+        jlClienteNome.setBounds(100, 100, 250, 25);
         jlProduto.setBounds(15, 130, 100, 25);
-        jtfProduto.setBounds(100, 130, 150, 25);
+        jtfProduto.setBounds(100, 130, 250, 25);
         jlQuantidade.setBounds(15, 160, 100, 25);
         jtfQuantidade.setBounds(100, 160, 100, 25);
         btAdicionar.setBounds(210, 160, 120, 25);

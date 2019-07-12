@@ -44,7 +44,7 @@ public class ConsultaServico extends ConsultaPadrao {
             linha.add(v.getFuncionario().getNome());
             linha.add(v.getValorTotal());
             linha.add(v.getTempoTotal());
-            linha.add(v.getDataEntrega());
+            linha.add(ParseDate.parseString(v.getDataEntrega()));
             linha.add(v.getFormaPagamento());
             linha.add(v.getObservacao());
             linhas.add(linha);

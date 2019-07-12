@@ -29,7 +29,7 @@ public class Sistema extends JFrame {
     
     
     public Sistema() {
-        super("Sistemãooo");
+        super("Gráfica do Jorel");
         
         //InicializarBanco.inicializar();
         
@@ -40,7 +40,7 @@ public class Sistema extends JFrame {
             return;
         }
         
-        System.out.println(usuario.getLogin());
+//        System.out.println(usuario.getLogin());
 
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
@@ -69,6 +69,8 @@ public class Sistema extends JFrame {
         JMenuItem miEquipamento = new JMenuItem();
         JMenuItem miTipoServico = new JMenuItem();
         JMenuItem miServico = new JMenuItem();
+        
+        JMenuItem miLogout = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
@@ -78,6 +80,8 @@ public class Sistema extends JFrame {
         miEquipamento.setText("Equipamento");
         miTipoServico.setText("Tipo de Serviço");
         miServico.setText("Serviço");
+        
+        miLogout.setText("Logout");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
@@ -87,6 +91,8 @@ public class Sistema extends JFrame {
         mOpcoes.add(miEquipamento);
         mOpcoes.add(miTipoServico);
         mOpcoes.add(miServico);
+        
+        jmBarraMenus.add(miLogout);
 
         telaInterna.setLayout(new BorderLayout());
 
@@ -161,6 +167,18 @@ public class Sistema extends JFrame {
                 public void actionPerformed(ActionEvent ev) {
                     CadastroServico cadServico = new CadastroServico();
                     telaInterna.add(cadServico);
+                }
+            }
+        );
+        
+        miLogout.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    System.out.println("Logout");
+                    SingletonUsuario.close();
+                    dispose();
+                    new Login();
                 }
             }
         );
