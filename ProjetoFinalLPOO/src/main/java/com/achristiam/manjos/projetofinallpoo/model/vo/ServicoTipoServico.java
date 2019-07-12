@@ -7,9 +7,12 @@ package com.achristiam.manjos.projetofinallpoo.model.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +20,7 @@ import javax.persistence.Table;
  * @author allainnc
  */
 @Entity
-@Table(name = "tb_servicoTipoServico")
+@Table(name = "tb_ServicoTipoServico")
 public class ServicoTipoServico {
     
     @Id
@@ -25,10 +28,12 @@ public class ServicoTipoServico {
     @Column(name = "sertser_codigo")
     private Long id;
     
-    @Column(name = "sertser_servico")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sertser_codServico")
     private Servico servico;
     
-    @Column(name = "sertser_tipoServico")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sertser_codTipoServico")
     private TipoServico tipoServico;
     
     @Column(name = "sertser_quantidade")

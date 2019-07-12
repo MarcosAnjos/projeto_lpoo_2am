@@ -8,9 +8,12 @@ package com.achristiam.manjos.projetofinallpoo.model.vo;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,10 +38,12 @@ public class Servico {
     @Temporal(TemporalType.DATE)
     private Date dataRequisicao;
     
-    @Column(name = "ser_cliente")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ven_codCliente")
     private Cliente cliente;
     
-    @Column(name = "ser_funcionario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ven_codFuncionario")
     private Funcionario funcionario;
 
     @Column(name = "ser_valorTotal")
@@ -53,6 +58,9 @@ public class Servico {
     @Column(name = "ven_dataEntrega")
     @Temporal(TemporalType.DATE)
     private Date dataEntrega;
+    
+    @Column(name = "ser_formaPagamento")
+    private String formaPagamento;
     
     public Servico() {
     }
@@ -140,6 +148,16 @@ public class Servico {
     public void setDataEntrega(Date dataEntrega) {
         this.dataEntrega = dataEntrega;
     }
+
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+    
+    
 
     @Override
     public String toString() {

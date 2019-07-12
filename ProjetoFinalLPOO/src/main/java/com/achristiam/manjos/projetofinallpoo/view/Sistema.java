@@ -68,6 +68,7 @@ public class Sistema extends JFrame {
         JMenuItem miVenda = new JMenuItem();
         JMenuItem miEquipamento = new JMenuItem();
         JMenuItem miTipoServico = new JMenuItem();
+        JMenuItem miServico = new JMenuItem();
 
         // nomes dos items do menu opcoes
         miCliente.setText("Cliente");
@@ -76,6 +77,7 @@ public class Sistema extends JFrame {
         miVenda.setText("Venda");
         miEquipamento.setText("Equipamento");
         miTipoServico.setText("Tipo de Serviço");
+        miServico.setText("Serviço");
 
         // 	adicionar itens nos menus	
         mOpcoes.add(miCliente);
@@ -84,6 +86,7 @@ public class Sistema extends JFrame {
         mOpcoes.add(miVenda);
         mOpcoes.add(miEquipamento);
         mOpcoes.add(miTipoServico);
+        mOpcoes.add(miServico);
 
         telaInterna.setLayout(new BorderLayout());
 
@@ -148,6 +151,16 @@ public class Sistema extends JFrame {
                 public void actionPerformed(ActionEvent ev) {
                     CadastroTipoServico cadTipoServico = new CadastroTipoServico();
                     telaInterna.add(cadTipoServico);
+                }
+            }
+        );
+        
+        miServico.addActionListener(
+            new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    CadastroServico cadServico = new CadastroServico();
+                    telaInterna.add(cadServico);
                 }
             }
         );

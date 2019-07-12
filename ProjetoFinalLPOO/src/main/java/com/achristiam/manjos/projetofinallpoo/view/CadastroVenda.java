@@ -104,6 +104,7 @@ public class CadastroVenda extends CadastroPadrao {
         this.opcoes.add("Cartão de Credito");
         this.opcoes.add("Cartão de Debito");
         this.opcoes.add("Dinheiro");
+        this.opcoes.add("Cheque");
         
         
         jpCampos = new JPanel();
@@ -201,6 +202,7 @@ public class CadastroVenda extends CadastroPadrao {
         } catch (Exception e) {
                 e.printStackTrace();
         }
+        
         
         
         jpCampos.add(jspDados);
@@ -440,6 +442,8 @@ public class CadastroVenda extends CadastroPadrao {
         this.btRemover.setVisible(true);
         this.jtfData.setEditable(true);
         
+        this.jtDados.setEnabled(true);
+        
         this.jtfFormaPagamentoRet.setVisible(false);
         this.jtfFormaPagamento.setVisible(true);
     }
@@ -463,8 +467,11 @@ public class CadastroVenda extends CadastroPadrao {
         this.btAdicionar.setVisible(false);
         this.btRemover.setVisible(false);
         
+        this.jtDados.setEnabled(false);
+        
         this.jtfFormaPagamentoRet.setVisible(true);
         this.jtfFormaPagamento.setVisible(false);
+        
         
         
         this.jtfTotal.setText(String.valueOf(z.format(ven.getValorTotal())));
