@@ -20,7 +20,7 @@
 - [x] MODELAGEM DOS REQUISITOS
 - [x] MODELAGEM DO BANCO DE DADOS
 - [x] IMPLEMENTAÇÃO 
-- [ ] ENTREGA
+- [x] ENTREGA
 
 ******************************************************************************************************************************************
 ## Desenvolvedores 
